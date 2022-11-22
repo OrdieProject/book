@@ -49,6 +49,7 @@ The HTML pages are in build.
 You can then open the resulting book in your web browser:
 
 _Firefox:_
+
 ```bash
 $ firefox build/index.html                               # Linux
 $ open -a "Firefox" build/index.html                     # OS X
@@ -57,6 +58,7 @@ $ start firefox.exe "%cd%\build\index.html"              # Windows (Cmd)
 ```
 
 _Chrome:_
+
 ```bash
 $ google-chrome build/index.html                        # Linux
 $ open -a "Google Chrome" build/index.html              # OS X
