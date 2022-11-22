@@ -1,0 +1,22 @@
+*.rst text eol=lf
+*.bat text eol=crlf
+Makefile text eol=lf
+*.md text eol=lf
+*.py text eol=lf
+*.html text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Images
+*.svg text eol=lf
+*.gif binary
+*.jpg binary
+*.png binary
+
+# General binaries
+*.elf binary
+*.bin binary
+
+# Git configuration files
+.gitignore text eol=lf
+.gitattributes text eol=lf
