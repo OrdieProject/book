@@ -35,7 +35,7 @@ jobs:
           pip3 install --user -r requirements.txt
       - name: Build
         shell: bash
-        run: sphinx-build -b html . build
+        run: sphinx-build -b html source build
       - name: Deploy
         if: success()
         uses: crazy-max/ghaction-github-pages@v2
