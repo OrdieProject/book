@@ -1,0 +1,288 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Design Sequence &#8212; Ordie: The Primordial Microcontroller  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Glossary" href="glossary.html" />
+    <link rel="prev" title="Introduction" href="intro.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="design-sequence">
+<h1>Design Sequence<a class="headerlink" href="#design-sequence" title="Permalink to this heading">¶</a></h1>
+<p>The following steps are performed when synthesizing a design:</p>
+<ol class="arabic simple">
+<li><p>Synthesis</p></li>
+</ol>
+<section id="checkout-notes">
+<h2>Checkout Notes<a class="headerlink" href="#checkout-notes" title="Permalink to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Create a <cite>config.json</cite> next to the design</p></li>
+<li><p>Check out the PDK</p></li>
+</ol>
+</section>
+<section id="assemble-the-pdk">
+<h2>Assemble the PDK<a class="headerlink" href="#assemble-the-pdk" title="Permalink to this heading">¶</a></h2>
+<p>The PDK comes as disparate components that must be checked out. It is not distributed as a monolithic binary. Each PDK is bespoke, and requires a setup step in order to assemble into a format that can be used by the OpenROAD project.</p>
+<p>A tool called [open_pdks](<a class="reference external" href="https://github.com/RTimothyEdwards/open_pdks/">https://github.com/RTimothyEdwards/open_pdks/</a>) is used to do the assembly. This should be run on a Linux machine. You will also need <cite>magic</cite>, which is used to process the GDS files that are generated  during the process.</p>
+<ol class="arabic simple">
+<li><p>Install <cite>python3 git m4 tcsh tcl-dev tk-dev</cite> as well as a compiler.</p></li>
+<li><p>Clone <cite>magic</cite> and compile it.</p></li>
+</ol>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/RTimothyEdwards/magic.git
+<span class="nb">cd</span> magic
+./configure --prefix<span class="o">=[</span>your prefix<span class="o">]</span>
+make
+make install
+</pre></div>
+</div>
+<p>Ensure that the prefix is added to the path.</p>
+<ol class="arabic simple" start="3">
+<li><p>Clone <cite>open_pdks</cite></p></li>
+</ol>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/RTimothyEdwards/open_pdks.git
+<span class="nb">cd</span> open_pdks
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Configure the PDKs you want installed as well path you want to install files to:</p></li>
+</ol>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>./configure <span class="se">\</span>
+    --enable-sky130-pdk <span class="se">\</span>
+    --enable-gf180mcu-pdk <span class="se">\</span>
+    --prefix<span class="o">=</span>/opt/Si/PDKs/
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Download the files and process them. This can take a while because it also installs a Python environment in order to do some of the processing.</p></li>
+</ol>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>make
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>Install the PDK files</p></li>
+</ol>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>make install
+</pre></div>
+</div>
+</section>
+<section id="build-openroad">
+<h2>Build OpenROAD<a class="headerlink" href="#build-openroad" title="Permalink to this heading">¶</a></h2>
+<p>OpenROAD contains multiple tools within it. It is a general orchestrator for various build commands. This includes floorplanning, placement, clock generation and optimization, global and detailed routing, and final GDSII generation.</p>
+<ol class="arabic simple">
+<li><p>Clone the repository</p></li>
+</ol>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone --recursive https://github.com/The-OpenROAD-Project/OpenROAD.git
+<span class="nb">cd</span> OpenROAD
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Install dependencies</p></li>
+</ol>
+<p>Dependencies only work on CentOS, Ubuntu, and Mac.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo ./etc/DependencyInstaller.sh -dev
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Compile the project</p></li>
+</ol>
+<p>You can specify a different directory here. This will build a “release” build by default, but you can specify <cite>-DCMAKE_BUILD_TYPE=Debug</cite> in order to build a debug version. You can also specify <cite>-DGPU=true</cite> in order to enable gpu support.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mkdir build
+<span class="nb">cd</span> build
+cmake .. -DCMAKE_INSTALL_PREFIX<span class="o">=[</span>path<span class="o">]</span>
+make
+make install
+</pre></div>
+</div>
+</section>
+<section id="install-openlane">
+<h2>Install OpenLane<a class="headerlink" href="#install-openlane" title="Permalink to this heading">¶</a></h2>
+<p>OpenLane is a set of scripts that drive the other tools.</p>
+<ol class="arabic simple">
+<li><p>Clone the project</p></li>
+</ol>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/The-OpenROAD-Project/OpenLane.git
+<span class="nb">cd</span> OpenLane
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Install Python dependencies</p></li>
+</ol>
+<p>If you’re using a python environment, activate it before running this command:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip install -r dependencies/python/run_time.txt  -r dependencies/python/compile_time.txt -r dependencies/python/precompile_time.txt
+</pre></div>
+</div>
+</section>
+<section id="install-yosys">
+<h2>Install Yosys<a class="headerlink" href="#install-yosys" title="Permalink to this heading">¶</a></h2>
+<p>Yosys is used to synthesize logic from Verilog source code</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/YosysHQ/yosys.git
+<span class="nb">cd</span> yosys
+make config-gcc
+make
+make install <span class="nv">PREFIX</span><span class="o">=[</span>path<span class="o">]</span>
+</pre></div>
+</div>
+</section>
+<section id="install-klayout">
+<h2>Install klayout<a class="headerlink" href="#install-klayout" title="Permalink to this heading">¶</a></h2>
+<p>Klayout is used to generate GDSII. It’s not clear why klayout is used and not magic.</p>
+<ol class="arabic simple">
+<li><p>Install dependencies. This varies depending on your platform.</p></li>
+</ol>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo apt install   gcc g++ make   qttools5-dev libqt5xmlpatterns5-dev qtmultimedia5-dev libqt5multimediawidgets5 libqt5svg5-dev   ruby ruby-dev   python3 python3-dev   libz-dev
+</pre></div>
+</div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/KLayout/klayout.git
+<span class="nb">cd</span> klayout
+./build.sh -prefix <span class="o">[</span>path<span class="o">]</span>
+</pre></div>
+</div>
+</section>
+<section id="install-netgen">
+<h2>Install netgen<a class="headerlink" href="#install-netgen" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/RTimothyEdwards/netgen.git
+<span class="nb">cd</span> netgen
+./configure --prefix<span class="o">=[</span>path<span class="o">]</span>
+make
+make install
+</pre></div>
+</div>
+</section>
+<section id="install-cvc-rv">
+<h2>Install cvc_rv<a class="headerlink" href="#install-cvc-rv" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo apt install bison automake autopoint
+git clone https://github.com/d-m-bailey/cvc.git
+<span class="nb">cd</span> cvc
+autoreconf -vif
+./configure --disable-nls --prefix<span class="o">=[</span>path<span class="o">]</span>
+make
+make install
+</pre></div>
+</div>
+</section>
+</section>
+<section id="run-the-build">
+<h1>Run the build<a class="headerlink" href="#run-the-build" title="Permalink to this heading">¶</a></h1>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$VIRTUAL_ENV</span>/lib/python3.10/site-packages/ <span class="se">\</span>
+<span class="nv">STD_CELL_LIBRARY_OPT</span><span class="o">=</span>sky130_fd_sc_hd <span class="se">\</span>
+<span class="nv">STD_CELL_LIBRARY</span><span class="o">=</span>sky130_fd_sc_hd <span class="se">\</span>
+<span class="nv">PDK_ROOT</span><span class="o">=</span>/opt/Si/PDKs/share/pdk <span class="se">\</span>
+<span class="nv">PDK</span><span class="o">=</span>sky130B <span class="se">\</span>
+./flow.tcl <span class="se">\</span>
+-design /opt/Si/work/inverter/ <span class="se">\</span>
+-ignore_mismatches
+</pre></div>
+</div>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Ordie: The Primordial Microcontroller</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Design Sequence</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#checkout-notes">Checkout Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#assemble-the-pdk">Assemble the PDK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#build-openroad">Build OpenROAD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-openlane">Install OpenLane</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-yosys">Install Yosys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-klayout">Install klayout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-netgen">Install netgen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-cvc-rv">Install cvc_rv</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#run-the-build">Run the build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="intro.html" title="previous chapter">Introduction</a></li>
+      <li>Next: <a href="glossary.html" title="next chapter">Glossary</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Sean "xobs" Cross.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/sequence.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

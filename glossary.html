@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Glossary &#8212; Ordie: The Primordial Microcontroller  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Design Sequence" href="sequence.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="glossary">
+<h1>Glossary<a class="headerlink" href="#glossary" title="Permalink to this heading">¶</a></h1>
+<p>This page describes terms that are used in the Ordie project, as well as in open silicon and IC design.</p>
+<dl class="simple glossary">
+<dt id="term-The-OpenROAD-Project">The OpenROAD Project<a class="headerlink" href="#term-The-OpenROAD-Project" title="Permalink to this term">¶</a></dt><dd><p>OpenROAD is the umbrella project that brings together various open silicon tools and projects to go from RTL to GDS.</p>
+</dd>
+<dt id="term-openroad">openroad<a class="headerlink" href="#term-openroad" title="Permalink to this term">¶</a></dt><dd><p>A product produced by the OpenROAD project that incorporates floorplanning, placement, cts, optimization, and global routing. Used as part of the OpenLane flow.</p>
+</dd>
+<dt id="term-OpenLane">OpenLane<a class="headerlink" href="#term-OpenLane" title="Permalink to this term">¶</a></dt><dd><p>A full, end-to-end set of scripts that can be used to generate GDSII files from HDL. OpenLane is the entire “toolchain” that bundles all other projects together and supports running them in sequence. OpenLane consists of TCL and Python scripts that glue all of the other projects together.</p>
+</dd>
+<dt id="term-HDL">HDL<a class="headerlink" href="#term-HDL" title="Permalink to this term">¶</a></dt><dd><p>Hardware Definition Language. A language such as VHDL or Verilog that can be used to describe hardware.</p>
+</dd>
+<dt id="term-Verilog">Verilog<a class="headerlink" href="#term-Verilog" title="Permalink to this term">¶</a></dt><dd><p>A Hardware Definition Language that vaguely resembles Pascal.</p>
+</dd>
+<dt id="term-Yosys">Yosys<a class="headerlink" href="#term-Yosys" title="Permalink to this term">¶</a></dt><dd><p>Yosys is a synthesis program which takes input such as Verilog code as well as primitives for a particular backend and generates outputs that can be fed into a tool for further processing. As an example, Yosys might turn a statement that adds two registers together into a series of <cite>LUT4</cite> adders that exist on a particular FPGA or PDK. Yosys will not do any sort of physical cell placement or routing, it will simply turn Verilog code into hardware primitives.</p>
+</dd>
+<dt id="term-PDK">PDK<a class="headerlink" href="#term-PDK" title="Permalink to this term">¶</a></dt><dd><p>Process Design Kit. The set of primitives and design rules available on a certain foundary’s process node. A PDK may include basics such as NAND and NOR gates, transistors, FETs, capacitors, and resistors, and it may include more advanced cells such as RAMs and fuses.</p>
+</dd>
+<dt id="term-GDSII">GDSII<a class="headerlink" href="#term-GDSII" title="Permalink to this term">¶</a></dt><dd><p>Also called GDS2 or simply GDS, this is the de-facto industry standard for submitting chip designs. It can be thought of as the “Gerber” equivalent for chips. Note that GDSII supports “black boxes” where the foundary is directed to add their own IP blocks.</p>
+</dd>
+<dt id="term-IP">IP<a class="headerlink" href="#term-IP" title="Permalink to this term">¶</a></dt><dd><p>The industry term for an existing design, originally standing for “Intellectual Property”. An IP core can be thought of as a library that is added to a chip design. For example, you may add I2C IP in order to allow your design to communicate using that bus.</p>
+</dd>
+<dt id="term-STA">STA<a class="headerlink" href="#term-STA" title="Permalink to this term">¶</a></dt><dd><p>Static Timing Analysis. This step in the synthesis flow determines how fast a circuit can run, and whether it can meet the frequency required by the designer.</p>
+</dd>
+<dt id="term-DFT">DFT<a class="headerlink" href="#term-DFT" title="Permalink to this term">¶</a></dt><dd><p>Design For Testing. This step adds features to the chip that can be used for diagnostics, such as scan chain insertion. This allows for the designer to probe various sections of the chip once it has been built.</p>
+</dd>
+<dt id="term-Floorplan">Floorplan<a class="headerlink" href="#term-Floorplan" title="Permalink to this term">¶</a></dt><dd><p>An initial arrangement of various sections on the chip. Floorplans are rough guides that are used to plan the rest of layout. For example, bond pads may be placed at the edges early on in the floorplanning process.</p>
+</dd>
+<dt id="term-Placement">Placement<a class="headerlink" href="#term-Placement" title="Permalink to this term">¶</a></dt><dd><p>Placement involves assigning cells their physical (X, Y) coordinates. Placement does not do any routing.</p>
+</dd>
+<dt id="term-CTS">CTS<a class="headerlink" href="#term-CTS" title="Permalink to this term">¶</a></dt><dd><p>Clock Tree Synthesis. This runs wires for the clock tree, adds buffers as necessary, and tries to keep latency and skew within acceptable parameters. This step comes immediately after the placement step, because clock resources are so important to keeping the chip synchronized.</p>
+</dd>
+<dt id="term-Parasitic-Extraction">Parasitic Extraction<a class="headerlink" href="#term-Parasitic-Extraction" title="Permalink to this term">¶</a></dt><dd><p>Parsitic Extraction involves creating an analogue model of the chip that can be used for simulation.</p>
+</dd>
+<dt id="term-LEC">LEC<a class="headerlink" href="#term-LEC" title="Permalink to this term">¶</a></dt><dd><p>Logic Equivalency Check. This optional step ensures that the logic of the generated chip matches the original HDL. This step takes a very long time, and is usually omitted except for the final tapeout step.</p>
+</dd>
+</dl>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Ordie: The Primordial Microcontroller</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sequence.html">Design Sequence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sequence.html#run-the-build">Run the build</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="sequence.html" title="previous chapter">Design Sequence</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Sean "xobs" Cross.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/glossary.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
