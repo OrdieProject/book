@@ -16,7 +16,7 @@ $ cd ordie
 $ python -mvenv .
 $ . bin/activate # Bash shell
 $ .\\Scripts\\activate.ps1 # Powershell
-(book) $ pip install Sphinx
+(book) $ pip install -r requirements.txt
 ```
 
 To build the book, run `sphinx-build`:

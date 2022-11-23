@@ -9,3 +9,4 @@ sphinxext-opengraph
 ablog
 pinout
 cairosvg
+guzzle_sphinx_theme
