@@ -176,7 +176,7 @@
 <h2>Magic<a class="headerlink" href="#magic" title="Permalink to this heading">¶</a></h2>
 <p>Magic is a chip layout and design tool. It is used by many steps in the flow to manipulate physical aspects of the final chip.</p>
 <ol class="arabic simple">
-<li><p>Clone <cite>magic</cite> and compile it.</p></li>
+<li><p>Clone <code class="docutils literal notranslate"><span class="pre">magic</span></code> and compile it.</p></li>
 </ol>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/RTimothyEdwards/magic.git
 <span class="nb">cd</span> magic
@@ -207,7 +207,7 @@ make install
 <ol class="arabic simple" start="3">
 <li><p>Compile the project</p></li>
 </ol>
-<p>You can specify a different directory here. This will build a “release” build by default, but you can specify <cite>-DCMAKE_BUILD_TYPE=Debug</cite> in order to build a debug version. You can also specify <cite>-DGPU=true</cite> in order to enable gpu support.</p>
+<p>You can specify a different directory here. This will build a “release” build by default, but you can specify <code class="docutils literal notranslate"><span class="pre">-DCMAKE_BUILD_TYPE=Debug</span></code> in order to build a debug version. You can also specify <code class="docutils literal notranslate"><span class="pre">-DGPU=true</span></code> in order to enable gpu support.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mkdir build
 <span class="nb">cd</span> build
 cmake .. -DCMAKE_INSTALL_PREFIX<span class="o">=[</span>path<span class="o">]</span>
@@ -294,15 +294,15 @@ make install
 <p>There are two options available when installing a PDK: Prebuilt, and build-it-yourself.</p>
 <section id="prebuilt-pdk">
 <h2>Prebuilt <a class="reference internal" href="glossary.html#term-PDK"><span class="xref std std-term">PDK</span></a><a class="headerlink" href="#prebuilt-pdk" title="Permalink to this heading">¶</a></h2>
-<p>You can use a tool called <a class="reference internal" href="glossary.html#term-Volare"><span class="xref std std-term">volare</span></a> to download prebuilt open PDKs. Volare is both a PDK manager and a PDK repository. You can install volare from pip using <cite>python3 -m pip install -U volare</cite>, and more documentation is available <a class="reference external" href="https://github.com/efabless/volare#usage">in its README</a>.</p>
+<p>You can use a tool called <a class="reference internal" href="glossary.html#term-Volare"><span class="xref std std-term">volare</span></a> to download prebuilt open PDKs. Volare is both a PDK manager and a PDK repository. You can install volare from pip using <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-U</span> <span class="pre">volare</span></code>, and more documentation is available <a class="reference external" href="https://github.com/efabless/volare#usage">in its README</a>.</p>
 </section>
 <section id="assemble-the-pdk">
 <h2>Assemble the PDK<a class="headerlink" href="#assemble-the-pdk" title="Permalink to this heading">¶</a></h2>
 <p>The PDK comes as disparate components that must be checked out. It is not distributed as a monolithic binary. Each PDK is bespoke, and requires a setup step in order to assemble into a format that can be used by the OpenROAD project.</p>
-<p>A tool called <a class="reference external" href="https://github.com/RTimothyEdwards/open_pdks/">open_pdks</a> is used to do the assembly. This should be run on a Linux machine. You will also need <cite>magic</cite>, which is used to process the GDS files that are generated  during the process.</p>
+<p>A tool called <a class="reference external" href="https://github.com/RTimothyEdwards/open_pdks/">open_pdks</a> is used to do the assembly. This should be run on a Linux machine. You will also need <code class="docutils literal notranslate"><span class="pre">magic</span></code>, which is used to process the GDS files that are generated  during the process.</p>
 <ol class="arabic simple">
-<li><p>Install <cite>python3 git m4 tcsh tcl-dev tk-dev</cite> as well as a C compiler.</p></li>
-<li><p>Clone <cite>open_pdks</cite></p></li>
+<li><p>Install <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">git</span> <span class="pre">m4</span> <span class="pre">tcsh</span> <span class="pre">tcl-dev</span> <span class="pre">tk-dev</span></code> as well as a C compiler.</p></li>
+<li><p>Clone <code class="docutils literal notranslate"><span class="pre">open_pdks</span></code></p></li>
 </ol>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/RTimothyEdwards/open_pdks.git
 <span class="nb">cd</span> open_pdks
