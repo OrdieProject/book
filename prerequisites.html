@@ -5,37 +5,166 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<meta property="og:title" content="Build Prerequisites" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="prerequisites.html" />
+<meta property="og:site_name" content="Ordie: The Primordial Microcontroller" />
+<meta property="og:description" content="A large numer of tools are required in order to harden a design. Each tool performs a very specific task, and most tools are required in order to complete a full flow. We also need a PDK, which is ..." />
+<meta name="description" content="A large numer of tools are required in order to harden a design. Each tool performs a very specific task, and most tools are required in order to complete a full flow. We also need a PDK, which is ..." />
 
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
     <title>Build Prerequisites &#8212; Ordie: The Primordial Microcontroller  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/guzzle.css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="_static/asciinema-player_2.6.1.css" />
+    <link rel="stylesheet" type="text/css" href="_static/asciinema-custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/platformpicker.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/asciinema-player_2.6.1.js"></script>
+    <script src="_static/platformpicker.js"></script>
+    <link rel="canonical" href="https://black-magic.org/prerequisites.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Glossary" href="glossary.html" />
-    <link rel="prev" title="Introduction" href="intro.html" />
+    <link rel="prev" title="Introduction" href="intro.html" /> 
+  
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+<style type="text/css">
+  ul.ablog-archive {
+    list-style: none;
+    overflow: auto;
+    margin-left: 0px;
+  }
+  ul.ablog-archive li {
+    float: left;
+    margin-right: 5px;
+    font-size: 80%;
+  }
+  ul.postlist a {
+    font-style: italic;
+  }
+  ul.postlist-style-disc {
+    list-style-type: disc;
+  }
+  ul.postlist-style-none {
+    list-style-type: none;
+  }
+  ul.postlist-style-circle {
+    list-style-type: circle;
+  }
+</style>
 
   </head><body>
-  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="glossary.html" title="Glossary"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="Introduction"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Ordie: The Primordial Microcontroller  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Build Prerequisites</a></li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Contents</h2>
+    <div class="sidebar-localtoc">
+      <ul>
+<li><a class="reference internal" href="#">Build Prerequisites</a></li>
+<li><a class="reference internal" href="#installing-required-software">Installing Required Software</a><ul>
+<li><a class="reference internal" href="#magic">Magic</a></li>
+<li><a class="reference internal" href="#openroad">OpenROAD</a></li>
+<li><a class="reference internal" href="#openlane">OpenLane</a></li>
+<li><a class="reference internal" href="#yosys">Yosys</a></li>
+<li><a class="reference internal" href="#klayout">KLayout</a></li>
+<li><a class="reference internal" href="#netgen">netgen</a></li>
+<li><a class="reference internal" href="#circuit-validity-checker">Circuit Validity Checker</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pdk"><span class="xref std std-term">PDK</span></a><ul>
+<li><a class="reference internal" href="#prebuilt-pdk">Prebuilt <span class="xref std std-term">PDK</span></a></li>
+<li><a class="reference internal" href="#assemble-the-pdk">Assemble the PDK</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#run-the-build">Run the build</a></li>
+</ul>
+
+    </div>
+  </div>
+</div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="intro.html"
+                          title="previous chapter">Introduction</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="glossary.html"
+                          title="next chapter">Glossary</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/prerequisites.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
           
-
-          <div class="body" role="main">
-            
-  <section id="build-prerequisites">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="index.html">Docs</a></li>
+              
+              <li>Build Prerequisites</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+             <section id="build-prerequisites">
 <h1>Build Prerequisites<a class="headerlink" href="#build-prerequisites" title="Permalink to this heading">¶</a></h1>
 <p>A large numer of tools are required in order to <a class="reference internal" href="glossary.html#term-harden"><span class="xref std std-term">harden</span></a> a design. Each tool performs a very specific task, and most tools are required in order to complete a full flow.</p>
 <p>We also need a <a class="reference internal" href="glossary.html#term-PDK"><span class="xref std std-term">PDK</span></a>, which is akin to a standard library in a programming language that also defines limits as to what our design can do, such as how small features can be and how quickly transistors can switch.</p>
@@ -216,91 +345,51 @@ make install
 </div>
 </section>
 
+<div class="section">
+   
+</div>
 
           </div>
-          
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">Ordie: The Primordial Microcontroller</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Build Prerequisites</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#installing-required-software">Installing Required Software</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#magic">Magic</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#openroad">OpenROAD</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#openlane">OpenLane</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#yosys">Yosys</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#klayout">KLayout</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#netgen">netgen</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#circuit-validity-checker">Circuit Validity Checker</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#pdk"><span class="xref std std-term">PDK</span></a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#prebuilt-pdk">Prebuilt <span class="xref std std-term">PDK</span></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#assemble-the-pdk">Assemble the PDK</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#run-the-build">Run the build</a></li>
-<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="intro.html" title="previous chapter">Introduction</a></li>
-      <li>Next: <a href="glossary.html" title="next chapter">Glossary</a></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
-
-
-
-
-
-
-
-
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2022, Sean "xobs" Cross.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.3.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-      
-      |
-      <a href="_sources/prerequisites.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
-
+            
+  <div class="footer-relations">
     
-
+      <div class="pull-left">
+        <a class="btn btn-default" href="intro.html" title="previous chapter (use the left arrow)">Introduction</a>
+      </div>
     
+      <div class="pull-right">
+        <a class="btn btn-default" href="glossary.html" title="next chapter (use the right arrow)">Glossary</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="glossary.html" title="Glossary"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="Introduction"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Ordie: The Primordial Microcontroller  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Build Prerequisites</a></li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2022, Sean "xobs" Cross. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
   </body>
 </html>
