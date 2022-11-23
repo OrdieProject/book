@@ -22,7 +22,7 @@ $ .\\Scripts\\activate.ps1 # Powershell
 To build the book, run `sphinx-build`:
 
 ```sh
-(book) $ sphinx-build.exe -b html source build
+(book) $ sphinx-build -b html source build
 Running Sphinx v5.3.0
 making output directory... done
 building [mo]: targets for 0 po files that are out of date

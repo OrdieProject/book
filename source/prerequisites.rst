@@ -152,14 +152,14 @@ There are two options available when installing a PDK: Prebuilt, and build-it-yo
 Prebuilt :term:`PDK`
 --------------------
 
-You can use a tool called :term:`volare` to download prebuilt open PDKs. Volare is both a PDK manager and a PDK repository. You can install volare from pip using `python3 -m pip install -U volare`, and more documentation is available [in its README](https://github.com/efabless/volare#usage).
+You can use a tool called :term:`volare` to download prebuilt open PDKs. Volare is both a PDK manager and a PDK repository. You can install volare from pip using `python3 -m pip install -U volare`, and more documentation is available `in its README <https://github.com/efabless/volare#usage>`_.
 
 Assemble the PDK
 ----------------
 
 The PDK comes as disparate components that must be checked out. It is not distributed as a monolithic binary. Each PDK is bespoke, and requires a setup step in order to assemble into a format that can be used by the OpenROAD project.
 
-A tool called [open_pdks](https://github.com/RTimothyEdwards/open_pdks/) is used to do the assembly. This should be run on a Linux machine. You will also need `magic`, which is used to process the GDS files that are generated  during the process.
+A tool called `open_pdks <https://github.com/RTimothyEdwards/open_pdks/>`_ is used to do the assembly. This should be run on a Linux machine. You will also need `magic`, which is used to process the GDS files that are generated  during the process.
 
 1. Install `python3 git m4 tcsh tcl-dev tk-dev` as well as a C compiler.
 
