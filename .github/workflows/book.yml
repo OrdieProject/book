@@ -36,6 +36,12 @@ jobs:
       - name: Build
         shell: bash
         run: sphinx-build -b html source build
+      - name: Remove Jekyll Special Cases
+        shell: bash
+        run: touch build/.nojekyll
+      - name: Set CNAME
+        shell: bash
+        run: echo book.ordie.dev > build/CNAME
       - name: Deploy
         if: success()
         uses: crazy-max/ghaction-github-pages@v2
