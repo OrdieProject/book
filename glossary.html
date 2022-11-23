@@ -17,7 +17,7 @@
     <script src="_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Design Sequence" href="sequence.html" />
+    <link rel="prev" title="Build Prerequisites" href="prerequisites.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -44,9 +44,13 @@
 </dd>
 <dt id="term-OpenLane">OpenLane<a class="headerlink" href="#term-OpenLane" title="Permalink to this term">¶</a></dt><dd><p>A full, end-to-end set of scripts that can be used to generate GDSII files from HDL. OpenLane is the entire “toolchain” that bundles all other projects together and supports running them in sequence. OpenLane consists of TCL and Python scripts that glue all of the other projects together.</p>
 </dd>
-<dt id="term-HDL">HDL<a class="headerlink" href="#term-HDL" title="Permalink to this term">¶</a></dt><dd><p>Hardware Definition Language. A language such as VHDL or Verilog that can be used to describe hardware.</p>
+<dt id="term-HDL">HDL<a class="headerlink" href="#term-HDL" title="Permalink to this term">¶</a></dt><dd><p>Hardware Definition Language. A language such as VHDL or Verilog that can be used to describe hardware. Produces <a class="reference internal" href="#term-RTL"><span class="xref std std-term">RTL</span></a> when synthesized.</p>
+</dd>
+<dt id="term-RTL">RTL<a class="headerlink" href="#term-RTL" title="Permalink to this term">¶</a></dt><dd><p>Register-Transfer Level. The logical circuit and state machine formed by synthesizing <a class="reference internal" href="#term-HDL"><span class="xref std std-term">HDL</span></a>. RTL is sometimes referred to as <a class="reference internal" href="#term-IP"><span class="xref std std-term">IP</span></a>.</p>
 </dd>
 <dt id="term-Verilog">Verilog<a class="headerlink" href="#term-Verilog" title="Permalink to this term">¶</a></dt><dd><p>A Hardware Definition Language that vaguely resembles Pascal.</p>
+</dd>
+<dt id="term-VHDL">VHDL<a class="headerlink" href="#term-VHDL" title="Permalink to this term">¶</a></dt><dd><p>A Hardware Definition Language that vaguely resembles Ada.</p>
 </dd>
 <dt id="term-Yosys">Yosys<a class="headerlink" href="#term-Yosys" title="Permalink to this term">¶</a></dt><dd><p>Yosys is a synthesis program which takes input such as Verilog code as well as primitives for a particular backend and generates outputs that can be fed into a tool for further processing. As an example, Yosys might turn a statement that adds two registers together into a series of <cite>LUT4</cite> adders that exist on a particular FPGA or PDK. Yosys will not do any sort of physical cell placement or routing, it will simply turn Verilog code into hardware primitives.</p>
 </dd>
@@ -66,9 +70,25 @@
 </dd>
 <dt id="term-CTS">CTS<a class="headerlink" href="#term-CTS" title="Permalink to this term">¶</a></dt><dd><p>Clock Tree Synthesis. This runs wires for the clock tree, adds buffers as necessary, and tries to keep latency and skew within acceptable parameters. This step comes immediately after the placement step, because clock resources are so important to keeping the chip synchronized.</p>
 </dd>
+<dt id="term-CVC">CVC<a class="headerlink" href="#term-CVC" title="Permalink to this term">¶</a></dt><dd><p>Circuit Validity Check. Ensures that the circuit does not have any errors such as signals crossing voltage domains, leaks due to intermittent floating inputs, or errors due to cutoff regions.</p>
+</dd>
 <dt id="term-Parasitic-Extraction">Parasitic Extraction<a class="headerlink" href="#term-Parasitic-Extraction" title="Permalink to this term">¶</a></dt><dd><p>Parsitic Extraction involves creating an analogue model of the chip that can be used for simulation.</p>
 </dd>
+<dt id="term-SPEF">SPEF<a class="headerlink" href="#term-SPEF" title="Permalink to this term">¶</a></dt><dd><p>Standard Parasitic Exchange Format. A file format that describes parasitics, and is the result of <a class="reference internal" href="#term-Parasitic-Extraction"><span class="xref std std-term">Parasitic Extraction</span></a>.</p>
+</dd>
 <dt id="term-LEC">LEC<a class="headerlink" href="#term-LEC" title="Permalink to this term">¶</a></dt><dd><p>Logic Equivalency Check. This optional step ensures that the logic of the generated chip matches the original HDL. This step takes a very long time, and is usually omitted except for the final tapeout step.</p>
+</dd>
+<dt id="term-Volare">Volare<a class="headerlink" href="#term-Volare" title="Permalink to this term">¶</a></dt><dd><p>A tool to manage installed PDKs, as well as a repository of prebuilt PDKs.</p>
+</dd>
+<dt id="term-harden">harden<a class="headerlink" href="#term-harden" title="Permalink to this term">¶</a></dt><dd><p>The process of turning <a class="reference internal" href="#term-RTL"><span class="xref std std-term">RTL</span></a> and other “soft” source design files into <a class="reference internal" href="#term-GDSII"><span class="xref std std-term">GDSII</span></a>. A hardware equivalent of “compiling”.</p>
+</dd>
+<dt id="term-magic">magic<a class="headerlink" href="#term-magic" title="Permalink to this term">¶</a></dt><dd><p>magic is a tool used to edit raw <a class="reference internal" href="#term-GDSII"><span class="xref std std-term">GDSII</span></a> files. It is also capable of running <a class="reference internal" href="#term-DRC"><span class="xref std std-term">DRC</span></a> and antenna checks on the final product.</p>
+</dd>
+<dt id="term-DRC">DRC<a class="headerlink" href="#term-DRC" title="Permalink to this term">¶</a></dt><dd><p>Design Rule Check. A <a class="reference internal" href="#term-PDK"><span class="xref std std-term">PDK</span></a> has a number of design rules that indicate a wide number of rules such as minimum trace width, minimum spacing between two features, or minimum angle when routing edges. A DRC check ensures that the design meets these rules.</p>
+</dd>
+<dt id="term-LVS">LVS<a class="headerlink" href="#term-LVS" title="Permalink to this term">¶</a></dt><dd><p>Layout Vs Schematic. This check ensures that the chip, as it was laid out, matches the schematic that did the layout. This step essentially reverse-engineers the chip and builds a netlist from the components it sees, then compares that netlist to the one that was used to generate the chip.</p>
+</dd>
+<dt id="term-signoff">signoff<a class="headerlink" href="#term-signoff" title="Permalink to this term">¶</a></dt><dd><p>The process of verifying the resulting design meets the rules set forth by the <a class="reference internal" href="#term-PDK"><span class="xref std std-term">PDK</span></a> and, when manufactured, will function as intended.</p>
 </dd>
 </dl>
 </section>
@@ -93,8 +113,10 @@
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sequence.html">Design Sequence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sequence.html#run-the-build">Run the build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prerequisites.html">Build Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prerequisites.html#installing-required-software">Installing Required Software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prerequisites.html#pdk"><span class="xref std std-term">PDK</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="prerequisites.html#run-the-build">Run the build</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Glossary</a></li>
 </ul>
 
@@ -102,7 +124,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="sequence.html" title="previous chapter">Design Sequence</a></li>
+      <li>Previous: <a href="prerequisites.html" title="previous chapter">Build Prerequisites</a></li>
   </ul></li>
 </ul>
 </div>

@@ -15,10 +15,16 @@ This page describes terms that are used in the Ordie project, as well as in open
         A full, end-to-end set of scripts that can be used to generate GDSII files from HDL. OpenLane is the entire "toolchain" that bundles all other projects together and supports running them in sequence. OpenLane consists of TCL and Python scripts that glue all of the other projects together.
 
     HDL
-        Hardware Definition Language. A language such as VHDL or Verilog that can be used to describe hardware.
+        Hardware Definition Language. A language such as VHDL or Verilog that can be used to describe hardware. Produces :term:`RTL` when synthesized.
+
+    RTL
+        Register-Transfer Level. The logical circuit and state machine formed by synthesizing :term:`HDL`. RTL is sometimes referred to as :term:`IP`.
 
     Verilog
         A Hardware Definition Language that vaguely resembles Pascal.
+
+    VHDL
+        A Hardware Definition Language that vaguely resembles Ada.
 
     Yosys
         Yosys is a synthesis program which takes input such as Verilog code as well as primitives for a particular backend and generates outputs that can be fed into a tool for further processing. As an example, Yosys might turn a statement that adds two registers together into a series of `LUT4` adders that exist on a particular FPGA or PDK. Yosys will not do any sort of physical cell placement or routing, it will simply turn Verilog code into hardware primitives.
@@ -47,8 +53,32 @@ This page describes terms that are used in the Ordie project, as well as in open
     CTS
         Clock Tree Synthesis. This runs wires for the clock tree, adds buffers as necessary, and tries to keep latency and skew within acceptable parameters. This step comes immediately after the placement step, because clock resources are so important to keeping the chip synchronized.
 
+    CVC
+        Circuit Validity Check. Ensures that the circuit does not have any errors such as signals crossing voltage domains, leaks due to intermittent floating inputs, or errors due to cutoff regions.
+
     Parasitic Extraction
         Parsitic Extraction involves creating an analogue model of the chip that can be used for simulation.
 
+    SPEF
+        Standard Parasitic Exchange Format. A file format that describes parasitics, and is the result of :term:`Parasitic Extraction`.
+
     LEC
         Logic Equivalency Check. This optional step ensures that the logic of the generated chip matches the original HDL. This step takes a very long time, and is usually omitted except for the final tapeout step.
+
+    Volare
+        A tool to manage installed PDKs, as well as a repository of prebuilt PDKs.
+
+    harden
+        The process of turning :term:`RTL` and other "soft" source design files into :term:`GDSII`. A hardware equivalent of "compiling".
+
+    magic
+        magic is a tool used to edit raw :term:`GDSII` files. It is also capable of running :term:`DRC` and antenna checks on the final product.
+
+    DRC
+        Design Rule Check. A :term:`PDK` has a number of design rules that indicate a wide number of rules such as minimum trace width, minimum spacing between two features, or minimum angle when routing edges. A DRC check ensures that the design meets these rules.
+
+    LVS
+        Layout Vs Schematic. This check ensures that the chip, as it was laid out, matches the schematic that did the layout. This step essentially reverse-engineers the chip and builds a netlist from the components it sees, then compares that netlist to the one that was used to generate the chip.
+
+    signoff
+        The process of verifying the resulting design meets the rules set forth by the :term:`PDK` and, when manufactured, will function as intended.

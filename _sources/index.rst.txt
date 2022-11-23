@@ -11,7 +11,7 @@ Welcome to Ordie: The Primordial Microcontroller's documentation!
    :caption: Contents:
 
    intro
-   sequence
+   prerequisites
    glossary
 
 
