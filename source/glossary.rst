@@ -27,7 +27,7 @@ This page describes terms that are used in the Ordie project, as well as in open
         A Hardware Definition Language that vaguely resembles Ada.
 
     Yosys
-        Yosys is a synthesis program which takes input such as Verilog code as well as primitives for a particular backend and generates outputs that can be fed into a tool for further processing. As an example, Yosys might turn a statement that adds two registers together into a series of `LUT4` adders that exist on a particular FPGA or PDK. Yosys will not do any sort of physical cell placement or routing, it will simply turn Verilog code into hardware primitives.
+        Yosys is a synthesis program which takes input such as Verilog code as well as primitives for a particular backend and generates outputs that can be fed into a tool for further processing. As an example, Yosys might turn a statement that adds two registers together into a series of ``LUT4`` adders that exist on a particular FPGA or PDK. Yosys will not do any sort of physical cell placement or routing, it will simply turn Verilog code into :term:`RTL`.
 
     PDK
         Process Design Kit. The set of primitives and design rules available on a certain foundary's process node. A PDK may include basics such as NAND and NOR gates, transistors, FETs, capacitors, and resistors, and it may include more advanced cells such as RAMs and fuses.
