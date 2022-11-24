@@ -91,3 +91,12 @@ This page describes terms that are used in the Ordie project, as well as in open
 
     tie cell
         A tie cell is a cell that buffers either the high or low voltage rail when connecting to a transistor that is tied high or low. This prevents surges from damaging the polysilicon gate.
+
+    welltap
+        A welltap is a generated structure that is placed at regular intervals around the chip in order to ensure that voltage rails are consistent. Well taps (or well tap cells) tie the nwell to VDD and the p-substrate to VSS / GND.
+
+    endcap
+        An endcap cell exists to pad out different :term:`IP` blocks in order to ensure they don't couple. Endcap cells act as a border between different areas of the chip.
+
+    decap
+        A decap cell is one that is inserted in order to prevent coupling between VDD and VSS.
