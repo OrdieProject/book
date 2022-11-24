@@ -82,3 +82,12 @@ This page describes terms that are used in the Ordie project, as well as in open
 
     signoff
         The process of verifying the resulting design meets the rules set forth by the :term:`PDK` and, when manufactured, will function as intended.
+
+    die area
+        The size (in um) of the die to be generated.
+
+    core area
+        The size (in um) of the available space to place features. This is equal to the die area minus the required margins.
+
+    tie cell
+        A tie cell is a cell that buffers either the high or low voltage rail when connecting to a transistor that is tied high or low. This prevents surges from damaging the polysilicon gate.

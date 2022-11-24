@@ -1,0 +1,395 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<meta property="og:title" content="Build Prerequisites" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="02-prerequisites.html" />
+<meta property="og:site_name" content="Ordie: The Primordial Microcontroller" />
+<meta property="og:description" content="A large numer of tools are required in order to harden a design. Each tool performs a very specific task, and most tools are required in order to complete a full flow. We also need a PDK, which is ..." />
+<meta name="description" content="A large numer of tools are required in order to harden a design. Each tool performs a very specific task, and most tools are required in order to complete a full flow. We also need a PDK, which is ..." />
+
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>Build Prerequisites &#8212; Ordie: The Primordial Microcontroller  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/guzzle.css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="_static/asciinema-player_2.6.1.css" />
+    <link rel="stylesheet" type="text/css" href="_static/asciinema-custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/platformpicker.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/asciinema-player_2.6.1.js"></script>
+    <script src="_static/platformpicker.js"></script>
+    <link rel="canonical" href="https://black-magic.org/02-prerequisites.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Build Overview" href="03-build-overview.html" />
+    <link rel="prev" title="Introduction" href="01-intro.html" /> 
+  
+   
+  
+<style type="text/css">
+  ul.ablog-archive {
+    list-style: none;
+    overflow: auto;
+    margin-left: 0px;
+  }
+  ul.ablog-archive li {
+    float: left;
+    margin-right: 5px;
+    font-size: 80%;
+  }
+  ul.postlist a {
+    font-style: italic;
+  }
+  ul.postlist-style-disc {
+    list-style-type: disc;
+  }
+  ul.postlist-style-none {
+    list-style-type: none;
+  }
+  ul.postlist-style-circle {
+    list-style-type: circle;
+  }
+</style>
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="03-build-overview.html" title="Build Overview"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="01-intro.html" title="Introduction"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Ordie: The Primordial Microcontroller  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Build Prerequisites</a></li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Contents</h2>
+    <div class="sidebar-localtoc">
+      <ul>
+<li><a class="reference internal" href="#">Build Prerequisites</a></li>
+<li><a class="reference internal" href="#installing-required-software">Installing Required Software</a><ul>
+<li><a class="reference internal" href="#magic">Magic</a></li>
+<li><a class="reference internal" href="#openroad">OpenROAD</a></li>
+<li><a class="reference internal" href="#openlane">OpenLane</a></li>
+<li><a class="reference internal" href="#yosys">Yosys</a></li>
+<li><a class="reference internal" href="#klayout">KLayout</a></li>
+<li><a class="reference internal" href="#netgen">netgen</a></li>
+<li><a class="reference internal" href="#circuit-validity-checker">Circuit Validity Checker</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pdk"><span class="xref std std-term">PDK</span></a><ul>
+<li><a class="reference internal" href="#prebuilt-pdk">Prebuilt <span class="xref std std-term">PDK</span></a></li>
+<li><a class="reference internal" href="#assemble-the-pdk">Assemble the PDK</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#run-the-build">Run the build</a></li>
+</ul>
+
+    </div>
+  </div>
+</div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="01-intro.html"
+                          title="previous chapter">Introduction</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="03-build-overview.html"
+                          title="next chapter">Build Overview</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/02-prerequisites.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="index.html">Docs</a></li>
+              
+              <li>Build Prerequisites</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+             <section id="build-prerequisites">
+<h1>Build Prerequisites<a class="headerlink" href="#build-prerequisites" title="Permalink to this heading">¶</a></h1>
+<p>A large numer of tools are required in order to <a class="reference internal" href="glossary.html#term-harden"><span class="xref std std-term">harden</span></a> a design. Each tool performs a very specific task, and most tools are required in order to complete a full flow.</p>
+<p>We also need a <a class="reference internal" href="glossary.html#term-PDK"><span class="xref std std-term">PDK</span></a>, which is akin to a standard library in a programming language that also defines limits as to what our design can do, such as how small features can be and how quickly transistors can switch.</p>
+</section>
+<section id="installing-required-software">
+<h1>Installing Required Software<a class="headerlink" href="#installing-required-software" title="Permalink to this heading">¶</a></h1>
+<p>There are many different software components that are required in order to <a class="reference internal" href="glossary.html#term-harden"><span class="xref std std-term">harden</span></a> a chip. This section covers each piece of software and how to install it.</p>
+<section id="magic">
+<h2>Magic<a class="headerlink" href="#magic" title="Permalink to this heading">¶</a></h2>
+<p>Magic is a chip layout and design tool. It is used by many steps in the flow to manipulate physical aspects of the final chip.</p>
+<ol class="arabic simple">
+<li><p>Clone <code class="docutils literal notranslate"><span class="pre">magic</span></code> and compile it.</p></li>
+</ol>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/RTimothyEdwards/magic.git
+<span class="nb">cd</span> magic
+./configure --prefix<span class="o">=[</span>your prefix<span class="o">]</span>
+make
+make install
+</pre></div>
+</div>
+<p>Ensure that the prefix is added to the path.</p>
+</section>
+<section id="openroad">
+<h2>OpenROAD<a class="headerlink" href="#openroad" title="Permalink to this heading">¶</a></h2>
+<p>OpenROAD contains multiple tools within it. It is a general orchestrator for various build commands. This includes floorplanning, placement, clock generation and optimization, global and detailed routing, and final <a class="reference internal" href="glossary.html#term-GDSII"><span class="xref std std-term">GDSII</span></a> generation.</p>
+<ol class="arabic simple">
+<li><p>Clone the repository</p></li>
+</ol>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone --recursive https://github.com/The-OpenROAD-Project/OpenROAD.git
+<span class="nb">cd</span> OpenROAD
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Install dependencies</p></li>
+</ol>
+<p>Dependencies only work on CentOS, Ubuntu, and Mac. <strong>Note that this will install development dependencies to `/usr/local`</strong></p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo ./etc/DependencyInstaller.sh -dev
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Compile the project</p></li>
+</ol>
+<p>You can specify a different directory here. This will build a “release” build by default, but you can specify <code class="docutils literal notranslate"><span class="pre">-DCMAKE_BUILD_TYPE=Debug</span></code> in order to build a debug version. You can also specify <code class="docutils literal notranslate"><span class="pre">-DGPU=true</span></code> in order to enable gpu support.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mkdir build
+<span class="nb">cd</span> build
+cmake .. -DCMAKE_INSTALL_PREFIX<span class="o">=[</span>path<span class="o">]</span>
+make
+make install
+</pre></div>
+</div>
+</section>
+<section id="openlane">
+<h2>OpenLane<a class="headerlink" href="#openlane" title="Permalink to this heading">¶</a></h2>
+<p>OpenLane is a set of scripts that drive the other tools. It is the primary interface that will be used when running the design flow.</p>
+<ol class="arabic simple">
+<li><p>Clone the project</p></li>
+</ol>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/The-OpenROAD-Project/OpenLane.git
+<span class="nb">cd</span> OpenLane
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Install Python dependencies</p></li>
+</ol>
+<p>If you’re using a python environment, activate it before running this command:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip install <span class="se">\</span>
+    -r dependencies/python/run_time.txt <span class="se">\</span>
+    -r dependencies/python/compile_time.txt <span class="se">\</span>
+    -r dependencies/python/precompile_time.txt
+</pre></div>
+</div>
+</section>
+<section id="yosys">
+<h2>Yosys<a class="headerlink" href="#yosys" title="Permalink to this heading">¶</a></h2>
+<p>Yosys is used to synthesize logic from Verilog source code.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/YosysHQ/yosys.git
+<span class="nb">cd</span> yosys
+make config-gcc
+make
+make install <span class="nv">PREFIX</span><span class="o">=[</span>path<span class="o">]</span>
+</pre></div>
+</div>
+</section>
+<section id="klayout">
+<h2>KLayout<a class="headerlink" href="#klayout" title="Permalink to this heading">¶</a></h2>
+<p>Klayout is used to generate <a class="reference internal" href="glossary.html#term-GDSII"><span class="xref std std-term">GDSII</span></a> as an alternative to <a class="reference internal" href="glossary.html#term-magic"><span class="xref std std-term">magic</span></a>. It is also used to perform <a class="reference internal" href="glossary.html#term-DRC"><span class="xref std std-term">DRC</span></a> checks as part of <a class="reference internal" href="glossary.html#term-signoff"><span class="xref std std-term">signoff</span></a>.</p>
+<ol class="arabic simple">
+<li><p>Install dependencies. This varies depending on your platform.</p></li>
+</ol>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo apt install   gcc g++ make   qttools5-dev libqt5xmlpatterns5-dev qtmultimedia5-dev libqt5multimediawidgets5 libqt5svg5-dev   ruby ruby-dev   python3 python3-dev   libz-dev
+</pre></div>
+</div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/KLayout/klayout.git
+<span class="nb">cd</span> klayout
+./build.sh -prefix <span class="o">[</span>path<span class="o">]</span>
+</pre></div>
+</div>
+</section>
+<section id="netgen">
+<h2>netgen<a class="headerlink" href="#netgen" title="Permalink to this heading">¶</a></h2>
+<p>Netgen is used to generate a netlist from the resulting chip in order to perform <a class="reference internal" href="glossary.html#term-LVS"><span class="xref std std-term">LVS</span></a> checks.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/RTimothyEdwards/netgen.git
+<span class="nb">cd</span> netgen
+./configure --prefix<span class="o">=[</span>path<span class="o">]</span>
+make
+make install
+</pre></div>
+</div>
+</section>
+<section id="circuit-validity-checker">
+<h2>Circuit Validity Checker<a class="headerlink" href="#circuit-validity-checker" title="Permalink to this heading">¶</a></h2>
+<p>The Circuit Validity Checker is used towards the end of the hardening process to ensure that the final circuit matches the requirements.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo apt install bison automake autopoint
+git clone https://github.com/d-m-bailey/cvc.git
+<span class="nb">cd</span> cvc
+autoreconf -vif
+./configure --disable-nls --prefix<span class="o">=[</span>path<span class="o">]</span>
+make
+make install
+</pre></div>
+</div>
+</section>
+</section>
+<section id="pdk">
+<h1><a class="reference internal" href="glossary.html#term-PDK"><span class="xref std std-term">PDK</span></a><a class="headerlink" href="#pdk" title="Permalink to this heading">¶</a></h1>
+<p>The PDK you select will depend on what process you want to target. While it is possible to port designs between processes, you may run into issues if you rely on features that are not present in the new node. This is similar to trying to port code from one operating system to another – if you rely on fancy features, you will need to work harder to find an equivalent in the new process.</p>
+<p>There are two options available when installing a PDK: Prebuilt, and build-it-yourself.</p>
+<section id="prebuilt-pdk">
+<h2>Prebuilt <a class="reference internal" href="glossary.html#term-PDK"><span class="xref std std-term">PDK</span></a><a class="headerlink" href="#prebuilt-pdk" title="Permalink to this heading">¶</a></h2>
+<p>You can use a tool called <a class="reference internal" href="glossary.html#term-Volare"><span class="xref std std-term">volare</span></a> to download prebuilt open PDKs. Volare is both a PDK manager and a PDK repository. You can install volare from pip using <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-U</span> <span class="pre">volare</span></code>, and more documentation is available <a class="reference external" href="https://github.com/efabless/volare#usage">in its README</a>.</p>
+</section>
+<section id="assemble-the-pdk">
+<h2>Assemble the PDK<a class="headerlink" href="#assemble-the-pdk" title="Permalink to this heading">¶</a></h2>
+<p>The PDK comes as disparate components that must be checked out. It is not distributed as a monolithic binary. Each PDK is bespoke, and requires a setup step in order to assemble into a format that can be used by the OpenROAD project.</p>
+<p>A tool called <a class="reference external" href="https://github.com/RTimothyEdwards/open_pdks/">open_pdks</a> is used to do the assembly. This should be run on a Linux machine. You will also need <code class="docutils literal notranslate"><span class="pre">magic</span></code>, which is used to process the GDS files that are generated  during the process.</p>
+<ol class="arabic simple">
+<li><p>Install <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">git</span> <span class="pre">m4</span> <span class="pre">tcsh</span> <span class="pre">tcl-dev</span> <span class="pre">tk-dev</span></code> as well as a C compiler.</p></li>
+<li><p>Clone <code class="docutils literal notranslate"><span class="pre">open_pdks</span></code></p></li>
+</ol>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/RTimothyEdwards/open_pdks.git
+<span class="nb">cd</span> open_pdks
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Configure the PDKs you want installed as well path you want to install files to:</p></li>
+</ol>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>./configure <span class="se">\</span>
+    --enable-sky130-pdk <span class="se">\</span>
+    --enable-gf180mcu-pdk <span class="se">\</span>
+    --prefix<span class="o">=</span>/opt/Si/PDKs/
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Download the files and process them. This can take a while because it also installs a Python environment in order to do some of the processing.</p></li>
+</ol>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>make
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Install the PDK files</p></li>
+</ol>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>make install
+</pre></div>
+</div>
+</section>
+</section>
+<section id="run-the-build">
+<h1>Run the build<a class="headerlink" href="#run-the-build" title="Permalink to this heading">¶</a></h1>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$VIRTUAL_ENV</span>/lib/python3.10/site-packages/ <span class="se">\</span>
+<span class="nv">STD_CELL_LIBRARY_OPT</span><span class="o">=</span>sky130_fd_sc_hd <span class="se">\</span>
+<span class="nv">STD_CELL_LIBRARY</span><span class="o">=</span>sky130_fd_sc_hd <span class="se">\</span>
+<span class="nv">PDK_ROOT</span><span class="o">=</span>/opt/Si/PDKs/share/pdk <span class="se">\</span>
+<span class="nv">PDK</span><span class="o">=</span>sky130B <span class="se">\</span>
+./flow.tcl <span class="se">\</span>
+-design /opt/Si/work/inverter/ <span class="se">\</span>
+-ignore_mismatches
+</pre></div>
+</div>
+</section>
+
+<div class="section">
+   
+</div>
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="01-intro.html" title="previous chapter (use the left arrow)">Introduction</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="03-build-overview.html" title="next chapter (use the right arrow)">Build Overview</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="03-build-overview.html" title="Build Overview"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="01-intro.html" title="Introduction"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Ordie: The Primordial Microcontroller  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Build Prerequisites</a></li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2022, Sean "xobs" Cross. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  </body>
+</html>
