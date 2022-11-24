@@ -3,6 +3,8 @@ Build Overview
 
 Now that all of the tools are installed, we can start working on the the actual process flow. The overall flow is described in `The OpenLane Overview <https://github.com/The-OpenROAD-Project/OpenLane/blob/master/docs/source/flow_overview.md#openlane-architecture>`_ and describes the typical design sequence. Many of these steps are automated, though various steps may require additional inputs other than the outputs of their immediate predecessors.
 
+Most tools are configured by adjusting environment variables, or by setting them in a `config.tcl` or `config.json` file. These tools also communicate by passing environment variables to child processes, and almost never pass project-specific settings on the command line.
+
 Synthesis
 ---------
 
@@ -40,6 +42,8 @@ init_fp
 
 This step takes the :term:`RTL` and places the cells in the specified area, ensuring that the cells all actually fit. It does this by dividing the area into rows and filling in components as it goes. This step also inserts any :term:`tie cell` that is required.
 
+This reads ``merged.nom.lef`` and writes its output to the same file.
+
 Note: It is currently unclear why this step is run twice.
 
 .. code-block:: sh
@@ -50,24 +54,92 @@ Note: It is currently unclear why this step is run twice.
 ioplacer
 ^^^^^^^^
 
-2. **Floorplaning**
-    2. `ioplacer` - Places the macro input and output ports
-    3. `pdngen` - Generates the power distribution network
-    4. `tapcell` - Inserts welltap and decap cells in the floorplan
-3. **Placement**
-    1. `RePLace` - Performs global placement
-    2. `Resizer` - Performs optional optimizations on the design
-    3. `OpenDP` - Performs detailed placement to legalize the globally placed components
-4. **CTS**
-    1. `TritonCTS` - Synthesizes the clock distribution network (the clock tree)
-5. **Routing**
+Every cell that was added has input and output pins. For example, if the synthesized :term:`RTL` contains an inverter, that inverter will have two pins.
+
+The IO Placer step adds these pins to the design in random locations (?).
+
+.. code-block:: sh
+
+    openroad -exit $OPENLANE_ROOT/scripts/openroad/ioplacer.tcl
+
+tapcell
+^^^^^^^
+
+The ``tapcell`` step inserts :term:`welltap` and :term:`endcap` cells into the design as necessary.
+
+.. note::
+    The log output uses the term :term:`decap` here, but it seems as though it's actually inserting :term:`endcap` cells instead. Is this a typo?
+
+.. code-block:: sh
+
+    openroad -exit $OPENLANE_ROOT/scripts/openroad/tapcell.tcl
+
+pdngen
+^^^^^^
+
+The final :term:`floorplan` step is to generate the power distribution network. This is accomplished with the ``pdngen`` tool from ``openroad``.
+
+This tool creates the power net for the chip. It is driven by evaluating `pdn_cfg.tcl <https://github.com/The-OpenROAD-Project/OpenLane/blob/master/scripts/openroad/common/pdn_cfg.tcl>`_ to define the networks prior to running ``pdn.tcl``
+
+.. code-block:: sh
+
+    openroad -exit $OPENLANE_ROOT/scripts/openroad/pdn.tcl
+
+Placement
+---------
+
+Placement is the process of selecting where to put elements in a design. There are two placement strategies available: Random, or ``RePlAce``. Random placement is fast but not very efficient, though is fine for simple designs.
+
+The ``PL_RANDOM_GLB_PLACEMENT`` setting in ``config.json`` or ``config.tcl`` can be set to ``true`` to use random placement or ``false`` to use ``RePlAce``.
+
+random_global_placement
+^^^^^^^^^^^^^^^^^^^^^^^
+
+This uses a Python script to randomly place cells in a design. For simple designs, this can be faster than using ``RePlAce``. It's a `very simple script <https://github.com/The-OpenROAD-Project/OpenLane/blob/master/scripts/odbpy/random_place.py>`_ and doesn't get invoked using the normal TCL flow.
+
+global_placement_or
+^^^^^^^^^^^^^^^^^^^
+
+This command is aliased to ``global_placement``.
+
+.. code-block:: sh
+
+    openroad -exit $OPENLANE_ROOT/scripts/openroad/gpl.tcl
+
+Placement Resizer
+^^^^^^^^^^^^^^^^^
+
+The Placement Resizer performs several sub-steps, including estimating parasitics and running static timing analysis again.
+
+The bulk of the step is ``detailed_placement`` which shuffles cells that have just been placed in order to ensure they're in legal positions.
+
+If ``PL_RESIZER_DESIGN_OPTIMIZATIONS`` is true, then the placement resizer step is run, otherwise it is skipped.
+
+Clock Tree Synthesis
+--------------------
+
+The next step is to synthesize the clock distribution network. If ``CLOCK_PORT`` and ``CLOCK_NET`` are not set, then this step is skipped.
+
+cts
+^^^
+
+This uses ``TritonCTS``, which is built into OpenROAD.
+
+.. code-block:: sh
+
+    openroad -exit $OPENLANE_ROOT/scripts/openroad/cts.tcl
+
+Routing
+-------
+
+3. **Routing**
     1. `FastRoute` - Performs global routing to generate a guide file for the detailed router
     2. `TritonRoute` - Performs detailed routing
     3. `OpenRCX` - Performs SPEF extraction
-6. **Tapeout**
+4. **Tapeout**
     1. `Magic` - Streams out the final GDSII layout file from the routed def
     2. `KLayout` - Streams out the final GDSII layout file from the routed def as a back-up
-7. **Signoff**
+5. **Signoff**
     1. `Magic` - Performs DRC Checks & Antenna Checks
     2. `KLayout` - Performs DRC Checks
     3. `Netgen` - Performs LVS Checks
