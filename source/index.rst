@@ -10,8 +10,9 @@ Welcome to Ordie: The Primordial Microcontroller's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   intro
-   prerequisites
+   01-intro
+   02-prerequisites
+   03-build-overview
    glossary
 
 
