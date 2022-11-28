@@ -1,0 +1,370 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<meta property="og:title" content="Hardening Overview" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="03-hardening-overview.html" />
+<meta property="og:site_name" content="Ordie: The Primordial Microcontroller" />
+<meta property="og:description" content="Now that all of the tools are installed, we can start working on the the actual process flow. The overall flow is described in The OpenLane Overview and describes the typical design sequence. Many ..." />
+<meta name="description" content="Now that all of the tools are installed, we can start working on the the actual process flow. The overall flow is described in The OpenLane Overview and describes the typical design sequence. Many ..." />
+
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>Hardening Overview &#8212; Ordie: The Primordial Microcontroller  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/guzzle.css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="_static/asciinema-player_2.6.1.css" />
+    <link rel="stylesheet" type="text/css" href="_static/asciinema-custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/platformpicker.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/asciinema-player_2.6.1.js"></script>
+    <script src="_static/platformpicker.js"></script>
+    <link rel="canonical" href="https://black-magic.org/03-hardening-overview.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Memory and Memories" href="04-ram.html" />
+    <link rel="prev" title="Prerequisites" href="02-prerequisites.html" /> 
+  
+   
+  
+<style type="text/css">
+  ul.ablog-archive {
+    list-style: none;
+    overflow: auto;
+    margin-left: 0px;
+  }
+  ul.ablog-archive li {
+    float: left;
+    margin-right: 5px;
+    font-size: 80%;
+  }
+  ul.postlist a {
+    font-style: italic;
+  }
+  ul.postlist-style-disc {
+    list-style-type: disc;
+  }
+  ul.postlist-style-none {
+    list-style-type: none;
+  }
+  ul.postlist-style-circle {
+    list-style-type: circle;
+  }
+</style>
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="04-ram.html" title="Memory and Memories"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="02-prerequisites.html" title="Prerequisites"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Ordie: The Primordial Microcontroller  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Hardening Overview</a></li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Contents</h2>
+    <div class="sidebar-localtoc">
+      <ul>
+<li><a class="reference internal" href="#">Hardening Overview</a><ul>
+<li><a class="reference internal" href="#synthesis">Synthesis</a><ul>
+<li><a class="reference internal" href="#yosys">Yosys</a></li>
+<li><a class="reference internal" href="#opensta">OpenSTA</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#floorplanning">Floorplanning</a><ul>
+<li><a class="reference internal" href="#init-fp">init_fp</a></li>
+<li><a class="reference internal" href="#ioplacer">ioplacer</a></li>
+<li><a class="reference internal" href="#tapcell">tapcell</a></li>
+<li><a class="reference internal" href="#pdngen">pdngen</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#placement">Placement</a><ul>
+<li><a class="reference internal" href="#random-global-placement">random_global_placement</a></li>
+<li><a class="reference internal" href="#global-placement-or">global_placement_or</a></li>
+<li><a class="reference internal" href="#placement-resizer">Placement Resizer</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#clock-tree-synthesis">Clock Tree Synthesis</a><ul>
+<li><a class="reference internal" href="#cts">cts</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#routing">Routing</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#running-the-hardening-flow">Running the hardening flow</a></li>
+</ul>
+
+    </div>
+  </div>
+</div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="02-prerequisites.html"
+                          title="previous chapter">Prerequisites</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="04-ram.html"
+                          title="next chapter">Memory and Memories</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/03-hardening-overview.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="index.html">Docs</a></li>
+              
+              <li>Hardening Overview</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+             <section id="hardening-overview">
+<h1>Hardening Overview<a class="headerlink" href="#hardening-overview" title="Permalink to this heading">¶</a></h1>
+<p>Now that all of the tools are installed, we can start working on the the actual process flow. The overall flow is described in <a class="reference external" href="https://github.com/The-OpenROAD-Project/OpenLane/blob/master/docs/source/flow_overview.md#openlane-architecture">The OpenLane Overview</a> and describes the typical design sequence. Many of these steps are automated, though various steps may require additional inputs other than the outputs of their immediate predecessors.</p>
+<p>Most tools are configured by adjusting environment variables, or by setting them in a <cite>config.tcl</cite> or <cite>config.json</cite> file. These tools also communicate by passing environment variables to child processes, and almost never pass project-specific settings on the command line.</p>
+<section id="synthesis">
+<h2>Synthesis<a class="headerlink" href="#synthesis" title="Permalink to this heading">¶</a></h2>
+<p>Synthesis is the process of taking <a class="reference internal" href="glossary.html#term-HDL"><span class="xref std std-term">HDL</span></a> and turning it into <a class="reference internal" href="glossary.html#term-RTL"><span class="xref std std-term">RTL</span></a>. This step is most familiar to those who have used FPGAs in the past, as it uses much the same tooling.</p>
+<section id="yosys">
+<h3>Yosys<a class="headerlink" href="#yosys" title="Permalink to this heading">¶</a></h3>
+<p>The first step is to actually synthesize the <a class="reference internal" href="glossary.html#term-RTL"><span class="xref std std-term">RTL</span></a>. This is done by setting a number of environment variables, then running <code class="docutils literal notranslate"><span class="pre">yosys</span></code> and passing it the script <a class="reference external" href="https://github.com/The-OpenROAD-Project/OpenLane/blob/master/scripts/yosys/synth.tcl">synth.tcl</a>. This performs synthesis and generates a netlist file according to the <code class="docutils literal notranslate"><span class="pre">SAVE_NETLIST</span></code> environment variable.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>yosys -c <span class="nv">$OPENLANE_ROOT</span>/scripts/yosys/synth.tcl
+</pre></div>
+</div>
+</section>
+<section id="opensta">
+<h3>OpenSTA<a class="headerlink" href="#opensta" title="Permalink to this heading">¶</a></h3>
+<p>After the <a class="reference internal" href="glossary.html#term-RTL"><span class="xref std std-term">RTL</span></a> is synthesized, it must be analyzed to get a rough idea of what sort of timing we can expect from the finished product. Since we now know what sort of cells we have, this step can also tell us how much of the chip’s area is being used. Finally, we can also know which nets form the “critical path” where the worst offenders are.</p>
+<p>OpenSTA is bundled as part of <code class="docutils literal notranslate"><span class="pre">OpenROAD</span></code>, and is invoked using the <a class="reference external" href="https://github.com/The-OpenROAD-Project/OpenLane/blob/master/scripts/openroad/sta.tcl">sta.tcl</a> script from <code class="docutils literal notranslate"><span class="pre">OpenLane</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>openroad -exit <span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/sta.tcl
+</pre></div>
+</div>
+</section>
+</section>
+<section id="floorplanning">
+<h2>Floorplanning<a class="headerlink" href="#floorplanning" title="Permalink to this heading">¶</a></h2>
+<p>Floorplanning is the process of dividing the rectangular chip area into multiple zones and populating those zones with components that were synthesized.</p>
+<p>Floorplanning is done over the course of several steps, with each step refining the previous one. These steps will attempt to fit the design <a class="reference internal" href="glossary.html#term-core-area"><span class="xref std std-term">core area</span></a>.</p>
+<section id="init-fp">
+<h3>init_fp<a class="headerlink" href="#init-fp" title="Permalink to this heading">¶</a></h3>
+<p>This step takes the <a class="reference internal" href="glossary.html#term-RTL"><span class="xref std std-term">RTL</span></a> and places the cells in the specified area, ensuring that the cells all actually fit. It does this by dividing the area into rows and filling in components as it goes. This step also inserts any <a class="reference internal" href="glossary.html#term-tie-cell"><span class="xref std std-term">tie cell</span></a> that is required.</p>
+<p>This reads <code class="docutils literal notranslate"><span class="pre">merged.nom.lef</span></code> and writes its output to the same file.</p>
+<p>Note: It is currently unclear why this step is run twice.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>openroad -exit <span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/floorplan.tcl
+openroad -exit <span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/floorplan.tcl
+</pre></div>
+</div>
+</section>
+<section id="ioplacer">
+<h3>ioplacer<a class="headerlink" href="#ioplacer" title="Permalink to this heading">¶</a></h3>
+<p>Every cell that was added has input and output pins. For example, if the synthesized <a class="reference internal" href="glossary.html#term-RTL"><span class="xref std std-term">RTL</span></a> contains an inverter, that inverter will have two pins.</p>
+<p>The IO Placer step adds these pins to the design in random locations (?).</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>openroad -exit <span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/ioplacer.tcl
+</pre></div>
+</div>
+</section>
+<section id="tapcell">
+<h3>tapcell<a class="headerlink" href="#tapcell" title="Permalink to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">tapcell</span></code> step inserts <a class="reference internal" href="glossary.html#term-welltap"><span class="xref std std-term">welltap</span></a> and <a class="reference internal" href="glossary.html#term-endcap"><span class="xref std std-term">endcap</span></a> cells into the design as necessary.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The log output uses the term <a class="reference internal" href="glossary.html#term-decap"><span class="xref std std-term">decap</span></a> here, but it seems as though it’s actually inserting <a class="reference internal" href="glossary.html#term-endcap"><span class="xref std std-term">endcap</span></a> cells instead. Is this a typo?</p>
+</div>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>openroad -exit <span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/tapcell.tcl
+</pre></div>
+</div>
+</section>
+<section id="pdngen">
+<h3>pdngen<a class="headerlink" href="#pdngen" title="Permalink to this heading">¶</a></h3>
+<p>The final <a class="reference internal" href="glossary.html#term-Floorplan"><span class="xref std std-term">floorplan</span></a> step is to generate the power distribution network. This is accomplished with the <code class="docutils literal notranslate"><span class="pre">pdngen</span></code> tool from <code class="docutils literal notranslate"><span class="pre">openroad</span></code>.</p>
+<p>This tool creates the power net for the chip. It is driven by evaluating <a class="reference external" href="https://github.com/The-OpenROAD-Project/OpenLane/blob/master/scripts/openroad/common/pdn_cfg.tcl">pdn_cfg.tcl</a> to define the networks prior to running <code class="docutils literal notranslate"><span class="pre">pdn.tcl</span></code></p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>openroad -exit <span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/pdn.tcl
+</pre></div>
+</div>
+</section>
+</section>
+<section id="placement">
+<h2>Placement<a class="headerlink" href="#placement" title="Permalink to this heading">¶</a></h2>
+<p>Placement is the process of selecting where to put elements in a design. There are two placement strategies available: Random, or <code class="docutils literal notranslate"><span class="pre">RePlAce</span></code>. Random placement is fast but not very efficient, though is fine for simple designs.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">PL_RANDOM_GLB_PLACEMENT</span></code> setting in <code class="docutils literal notranslate"><span class="pre">config.json</span></code> or <code class="docutils literal notranslate"><span class="pre">config.tcl</span></code> can be set to <code class="docutils literal notranslate"><span class="pre">true</span></code> to use random placement or <code class="docutils literal notranslate"><span class="pre">false</span></code> to use <code class="docutils literal notranslate"><span class="pre">RePlAce</span></code>.</p>
+<section id="random-global-placement">
+<h3>random_global_placement<a class="headerlink" href="#random-global-placement" title="Permalink to this heading">¶</a></h3>
+<p>This uses a Python script to randomly place cells in a design. For simple designs, this can be faster than using <code class="docutils literal notranslate"><span class="pre">RePlAce</span></code>. It’s a <a class="reference external" href="https://github.com/The-OpenROAD-Project/OpenLane/blob/master/scripts/odbpy/random_place.py">very simple script</a> and doesn’t get invoked using the normal TCL flow.</p>
+</section>
+<section id="global-placement-or">
+<h3>global_placement_or<a class="headerlink" href="#global-placement-or" title="Permalink to this heading">¶</a></h3>
+<p>This command is aliased to <code class="docutils literal notranslate"><span class="pre">global_placement</span></code>.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>openroad -exit <span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/gpl.tcl
+</pre></div>
+</div>
+</section>
+<section id="placement-resizer">
+<h3>Placement Resizer<a class="headerlink" href="#placement-resizer" title="Permalink to this heading">¶</a></h3>
+<p>The Placement Resizer performs several sub-steps, including estimating parasitics and running static timing analysis again.</p>
+<p>The bulk of the step is <code class="docutils literal notranslate"><span class="pre">detailed_placement</span></code> which shuffles cells that have just been placed in order to ensure they’re in legal positions.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">PL_RESIZER_DESIGN_OPTIMIZATIONS</span></code> is true, then the placement resizer step is run, otherwise it is skipped.</p>
+</section>
+</section>
+<section id="clock-tree-synthesis">
+<h2>Clock Tree Synthesis<a class="headerlink" href="#clock-tree-synthesis" title="Permalink to this heading">¶</a></h2>
+<p>The next step is to synthesize the clock distribution network. If <code class="docutils literal notranslate"><span class="pre">CLOCK_PORT</span></code> and <code class="docutils literal notranslate"><span class="pre">CLOCK_NET</span></code> are not set, then this step is skipped.</p>
+<section id="cts">
+<h3>cts<a class="headerlink" href="#cts" title="Permalink to this heading">¶</a></h3>
+<p>This uses <code class="docutils literal notranslate"><span class="pre">TritonCTS</span></code>, which is built into OpenROAD.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>openroad -exit <span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/cts.tcl
+</pre></div>
+</div>
+</section>
+</section>
+<section id="routing">
+<h2>Routing<a class="headerlink" href="#routing" title="Permalink to this heading">¶</a></h2>
+<ol class="arabic simple" start="3">
+<li><dl class="simple">
+<dt><strong>Routing</strong></dt><dd><ol class="arabic simple">
+<li><p><cite>FastRoute</cite> - Performs global routing to generate a guide file for the detailed router</p></li>
+<li><p><cite>TritonRoute</cite> - Performs detailed routing</p></li>
+<li><p><cite>OpenRCX</cite> - Performs SPEF extraction</p></li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Tapeout</strong></dt><dd><ol class="arabic simple">
+<li><p><cite>Magic</cite> - Streams out the final GDSII layout file from the routed def</p></li>
+<li><p><cite>KLayout</cite> - Streams out the final GDSII layout file from the routed def as a back-up</p></li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Signoff</strong></dt><dd><ol class="arabic simple">
+<li><p><cite>Magic</cite> - Performs DRC Checks &amp; Antenna Checks</p></li>
+<li><p><cite>KLayout</cite> - Performs DRC Checks</p></li>
+<li><p><cite>Netgen</cite> - Performs LVS Checks</p></li>
+<li><p><cite>CVC</cite> - Performs Circuit Validity Checks</p></li>
+</ol>
+</dd>
+</dl>
+</li>
+</ol>
+</section>
+</section>
+<section id="running-the-hardening-flow">
+<h1>Running the hardening flow<a class="headerlink" href="#running-the-hardening-flow" title="Permalink to this heading">¶</a></h1>
+<p>You can tie everything together by running <code class="docutils literal notranslate"><span class="pre">flow.tcl</span></code> from <code class="docutils literal notranslate"><span class="pre">OpenLane</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$VIRTUAL_ENV</span>/lib/python3.10/site-packages/ <span class="se">\</span>
+<span class="nv">STD_CELL_LIBRARY_OPT</span><span class="o">=</span>sky130_fd_sc_hd <span class="se">\</span>
+<span class="nv">STD_CELL_LIBRARY</span><span class="o">=</span>sky130_fd_sc_hd <span class="se">\</span>
+<span class="nv">PDK_ROOT</span><span class="o">=</span>/opt/Si/PDKs/share/pdk <span class="se">\</span>
+<span class="nv">PDK</span><span class="o">=</span>sky130B <span class="se">\</span>
+./flow.tcl <span class="se">\</span>
+-design /opt/Si/work/inverter/ <span class="se">\</span>
+-ignore_mismatches
+</pre></div>
+</div>
+</section>
+
+<div class="section">
+   
+</div>
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="02-prerequisites.html" title="previous chapter (use the left arrow)">Prerequisites</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="04-ram.html" title="next chapter (use the right arrow)">Memory and Memories</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="04-ram.html" title="Memory and Memories"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="02-prerequisites.html" title="Prerequisites"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Ordie: The Primordial Microcontroller  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Hardening Overview</a></li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2022, Sean "xobs" Cross. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  </body>
+</html>

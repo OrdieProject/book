@@ -5,12 +5,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<meta property="og:title" content="Introduction" />
+<meta property="og:title" content="Memory and Memories" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="01-intro.html" />
+<meta property="og:url" content="04-ram.html" />
 <meta property="og:site_name" content="Ordie: The Primordial Microcontroller" />
-<meta property="og:description" content="This book details the steps necessary to harden a design from a soft FPGA to physical silicon." />
-<meta name="description" content="This book details the steps necessary to harden a design from a soft FPGA to physical silicon." />
+<meta property="og:description" content="Memory is a subtle thing in chip design. Often when people hear the term “memory” they think of addressable, volatile storage. However memories can be far more than that. In addition to the more tr..." />
+<meta name="description" content="Memory is a subtle thing in chip design. Often when people hear the term “memory” they think of addressable, volatile storage. However memories can be far more than that. In addition to the more tr..." />
 
   
   <!-- Licensed under the Apache 2.0 License -->
@@ -21,7 +21,7 @@
   <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-    <title>Introduction &#8212; Ordie: The Primordial Microcontroller  documentation</title>
+    <title>Memory and Memories &#8212; Ordie: The Primordial Microcontroller  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/guzzle.css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -36,11 +36,11 @@
     <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/asciinema-player_2.6.1.js"></script>
     <script src="_static/platformpicker.js"></script>
-    <link rel="canonical" href="https://black-magic.org/01-intro.html" />
+    <link rel="canonical" href="https://black-magic.org/04-ram.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Prerequisites" href="02-prerequisites.html" />
-    <link rel="prev" title="Welcome to Ordie: The Primordial Microcontroller’s documentation!" href="index.html" /> 
+    <link rel="next" title="Glossary" href="glossary.html" />
+    <link rel="prev" title="Hardening Overview" href="03-hardening-overview.html" /> 
   
    
   
@@ -77,13 +77,13 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="02-prerequisites.html" title="Prerequisites"
+          <a href="glossary.html" title="Glossary"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Welcome to Ordie: The Primordial Microcontroller’s documentation!"
+          <a href="03-hardening-overview.html" title="Hardening Overview"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Ordie: The Primordial Microcontroller  documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Introduction</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Memory and Memories</a></li> 
       </ul>
     </div>
     <div class="container-wrapper">
@@ -93,20 +93,35 @@
       </div>
   <div id="left-column">
     <div class="sphinxsidebar">
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Contents</h2>
+    <div class="sidebar-localtoc">
+      <ul>
+<li><a class="reference internal" href="#">Memory and Memories</a><ul>
+<li><a class="reference internal" href="#openram">OpenRAM</a></li>
+<li><a class="reference internal" href="#dffram">DFFRAM</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+</div>
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="index.html"
-                          title="previous chapter">Welcome to Ordie: The Primordial Microcontroller’s documentation!</a></p>
+    <p class="topless"><a href="03-hardening-overview.html"
+                          title="previous chapter">Hardening Overview</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="02-prerequisites.html"
-                          title="next chapter">Prerequisites</a></p>
+    <p class="topless"><a href="glossary.html"
+                          title="next chapter">Glossary</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/01-intro.rst.txt"
+      <li><a href="_sources/04-ram.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -132,14 +147,32 @@
             <ol class="breadcrumb">
               <li><a href="index.html">Docs</a></li>
               
-              <li>Introduction</li>
+              <li>Memory and Memories</li>
             </ol>
           </div>
           
           <div class="document clearer body">
-             <section id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h1>
-<p>This book details the steps necessary to <a class="reference internal" href="glossary.html#term-harden"><span class="xref std std-term">harden</span></a> a design from a soft FPGA to physical silicon.</p>
+             <section id="memory-and-memories">
+<h1>Memory and Memories<a class="headerlink" href="#memory-and-memories" title="Permalink to this heading">¶</a></h1>
+<p>Memory is a subtle thing in chip design. Often when people hear the term “memory” they think of addressable, volatile storage. However memories can be far more than that.</p>
+<p>In addition to the more traditional addressable RAM, memory can also be used to form caches, register files, or large buffers. It can also be used to form ROMs, in the case where memory is read-only.</p>
+<section id="openram">
+<h2>OpenRAM<a class="headerlink" href="#openram" title="Permalink to this heading">¶</a></h2>
+<p><a class="reference external" href="https://github.com/VLSIDA/OpenRAM">OpenRAM</a> is currently the most efficient open source RAM compiler. It will create memory of an arbitrary width and depth and ensure the resulting design meets timing requirements.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Synthesizing OpenRAM blocks can take a long time – several hours when doing <a class="reference internal" href="glossary.html#term-LVS"><span class="xref std std-term">LVS</span></a> extraction, so it is best to build your RAMs in a separate step before your main synthesis.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>OpenRAM has their own version of tools, as well as their own version of the PDK. OpenRAM does not support using the common set of tools or PDK. You <strong>must</strong> use their Docker image, as well as the PDK hosted by them.</p>
+</div>
+<p>OpenRAM memories are comparatively large and dense. The tradeoff is that synthesizing them takes a long time.</p>
+</section>
+<section id="dffram">
+<h2>DFFRAM<a class="headerlink" href="#dffram" title="Permalink to this heading">¶</a></h2>
+<p><a class="reference external" href="https://github.com/AUCOHL/DFFRAM">DFFRAM</a> is much faster to synthesize than OpenRAM, but results in lower density memories. DFFRAM can be used to synthesize small, oddly-shaped memories such as cache tag lines or register files.</p>
+</section>
 </section>
 
 <div class="section">
@@ -151,11 +184,11 @@
   <div class="footer-relations">
     
       <div class="pull-left">
-        <a class="btn btn-default" href="index.html" title="previous chapter (use the left arrow)">Welcome to Ordie: The Primordial Microcontroller’s documentation!</a>
+        <a class="btn btn-default" href="03-hardening-overview.html" title="previous chapter (use the left arrow)">Hardening Overview</a>
       </div>
     
       <div class="pull-right">
-        <a class="btn btn-default" href="02-prerequisites.html" title="next chapter (use the right arrow)">Prerequisites</a>
+        <a class="btn btn-default" href="glossary.html" title="next chapter (use the right arrow)">Glossary</a>
       </div>
     </div>
     <div class="clearer"></div>
@@ -170,13 +203,13 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="02-prerequisites.html" title="Prerequisites"
+          <a href="glossary.html" title="Glossary"
              >next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Welcome to Ordie: The Primordial Microcontroller’s documentation!"
+          <a href="03-hardening-overview.html" title="Hardening Overview"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Ordie: The Primordial Microcontroller  documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Introduction</a></li> 
+        <li class="nav-item nav-item-this"><a href="">Memory and Memories</a></li> 
       </ul>
     </div>
 <script type="text/javascript">
