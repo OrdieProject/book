@@ -1,9 +1,26 @@
-Build Prerequisites
-===================
+Prerequisites
+=============
 
 A large numer of tools are required in order to :term:`harden` a design. Each tool performs a very specific task, and most tools are required in order to complete a full flow.
 
 We also need a :term:`PDK`, which is akin to a standard library in a programming language that also defines limits as to what our design can do, such as how small features can be and how quickly transistors can switch.
+
+Creating a Python venv
+======================
+
+Python dependencies become much easier to manage if you install them into a ``venv``. This keeps them separate on a per-project basis. It is recommended to set up a ``venv`` for these tools and to ``activate`` it prior to installing or using any of these tools.
+
+You can set an environment variable ``OPEN_SI_PREFIX`` to point to where you want everything to be installed.
+
+.. code-block:: sh
+
+    $ python3 -mvenv $OPEN_SI_PREFIX
+    $ . $OPEN_SI_PREFIX/bin/activate
+    ($OPEN_SI_PREFIX) $
+
+You can look in the ``bin/`` directory to run a different activation script if you run a non-Bourne shell. On Windows, the directory will be called ``Scripts/``, although installing these tools is currently unsupported on Windows.
+
+You will need to run the ``activate`` step prior to doing any steps presented here, and you will know you're in the venv because your command prompt will have the venv name printed before it.
 
 Installing Required Software
 ============================
@@ -21,16 +38,16 @@ Magic is a chip layout and design tool. It is used by many steps in the flow to 
 
     git clone https://github.com/RTimothyEdwards/magic.git
     cd magic
-    ./configure --prefix=[your prefix]
+    ./configure --prefix=$OPEN_SI_PREFIX
     make
     make install
 
 Ensure that the prefix is added to the path.
 
 OpenROAD
---------------
+--------
 
-OpenROAD contains multiple tools within it. It is a general orchestrator for various build commands. This includes floorplanning, placement, clock generation and optimization, global and detailed routing, and final :term:`GDSII` generation.
+OpenROAD contains multiple tools within it. It is a general orchestrator for various hardening commands. This includes floorplanning, placement, clock generation and optimization, global and detailed routing, and final :term:`GDSII` generation.
 
 1. Clone the repository
 
@@ -50,18 +67,18 @@ Dependencies only work on CentOS, Ubuntu, and Mac. **Note that this will install
 
 3. Compile the project
 
-You can specify a different directory here. This will build a "release" build by default, but you can specify ``-DCMAKE_BUILD_TYPE=Debug`` in order to build a debug version. You can also specify ``-DGPU=true`` in order to enable gpu support.
+You can specify a different directory here. This will compile a "release" build by default, but you can specify ``-DCMAKE_BUILD_TYPE=Debug`` in order to compile a debug version. You can also specify ``-DGPU=true`` in order to enable gpu support.
 
 .. code-block:: sh
 
     mkdir build
     cd build
-    cmake .. -DCMAKE_INSTALL_PREFIX=[path]
+    cmake .. -DCMAKE_INSTALL_PREFIX=$OPEN_SI_PREFIX
     make
     make install
 
 OpenLane
-----------------
+--------
 
 OpenLane is a set of scripts that drive the other tools. It is the primary interface that will be used when running the design flow.
 
@@ -84,7 +101,7 @@ If you're using a python environment, activate it before running this command:
         -r dependencies/python/precompile_time.txt
 
 Yosys
--------------
+-----
 
 Yosys is used to synthesize logic from Verilog source code.
 
@@ -94,10 +111,10 @@ Yosys is used to synthesize logic from Verilog source code.
     cd yosys
     make config-gcc
     make
-    make install PREFIX=[path]
+    make install PREFIX=$OPEN_SI_PREFIX
 
 KLayout
----------------
+-------
 
 Klayout is used to generate :term:`GDSII` as an alternative to :term:`magic`. It is also used to perform :term:`DRC` checks as part of :term:`signoff`.
 
@@ -111,7 +128,7 @@ Klayout is used to generate :term:`GDSII` as an alternative to :term:`magic`. It
 
     git clone https://github.com/KLayout/klayout.git
     cd klayout
-    ./build.sh -prefix [path]
+    ./build.sh -prefix $OPEN_SI_PREFIX
 
 netgen
 ------
@@ -122,7 +139,7 @@ Netgen is used to generate a netlist from the resulting chip in order to perform
 
     git clone https://github.com/RTimothyEdwards/netgen.git
     cd netgen
-    ./configure --prefix=[path]
+    ./configure --prefix=$OPEN_SI_PREFIX
     make
     make install
 
@@ -137,10 +154,26 @@ The Circuit Validity Checker is used towards the end of the hardening process to
     git clone https://github.com/d-m-bailey/cvc.git
     cd cvc
     autoreconf -vif
-    ./configure --disable-nls --prefix=[path]
+    ./configure --disable-nls --prefix=$OPEN_SI_PREFIX
     make
     make install
 
+OpenRAM
+=======
+
+You may need custom memory sizes, for example if you're working on tagged cache memory. In this case, you will need to compile memories yourself.
+
+.. code-block:: sh
+
+    git clone https://github.com/VLSIDA/OpenRAM.git
+    cd OpenRAM
+    pip install -r requirements.txt
+
+Additionally, OpenRAM requires its own copy of the PDKs. 
+
+.. note::
+
+    OpenRAM requires its own, pinned copy of the PDK. It is NOT able to use another version of the PDK you may have. Doing so will cause strange breakage such as ``Could not find pin gnd on col_cap_bitcell_2port``, or generation never actually finishing.
 
 :term:`PDK`
 ===========
@@ -176,6 +209,7 @@ A tool called `open_pdks <https://github.com/RTimothyEdwards/open_pdks/>`_ is us
 
     ./configure \
         --enable-sky130-pdk \
+        --enable-sram-sky130 \
         --enable-gf180mcu-pdk \
         --prefix=/opt/Si/PDKs/
 
@@ -191,17 +225,3 @@ A tool called `open_pdks <https://github.com/RTimothyEdwards/open_pdks/>`_ is us
 .. code-block:: sh
 
     make install
-
-Run the build
-=============
-
-.. code-block:: sh
-
-    PYTHONPATH=$VIRTUAL_ENV/lib/python3.10/site-packages/ \
-    STD_CELL_LIBRARY_OPT=sky130_fd_sc_hd \
-    STD_CELL_LIBRARY=sky130_fd_sc_hd \
-    PDK_ROOT=/opt/Si/PDKs/share/pdk \
-    PDK=sky130B \
-    ./flow.tcl \
-    -design /opt/Si/work/inverter/ \
-    -ignore_mismatches

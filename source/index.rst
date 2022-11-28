@@ -12,7 +12,8 @@ Welcome to Ordie: The Primordial Microcontroller's documentation!
 
    01-intro
    02-prerequisites
-   03-build-overview
+   03-hardening-overview
+   04-ram
    glossary
 
 

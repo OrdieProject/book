@@ -1,5 +1,5 @@
-Build Overview
-==============
+Hardening Overview
+==================
 
 Now that all of the tools are installed, we can start working on the the actual process flow. The overall flow is described in `The OpenLane Overview <https://github.com/The-OpenROAD-Project/OpenLane/blob/master/docs/source/flow_overview.md#openlane-architecture>`_ and describes the typical design sequence. Many of these steps are automated, though various steps may require additional inputs other than the outputs of their immediate predecessors.
 
@@ -144,3 +144,19 @@ Routing
     2. `KLayout` - Performs DRC Checks
     3. `Netgen` - Performs LVS Checks
     4. `CVC` - Performs Circuit Validity Checks
+
+Running the hardening flow
+==========================
+
+You can tie everything together by running ``flow.tcl`` from ``OpenLane``:
+
+.. code-block:: sh
+
+    PYTHONPATH=$VIRTUAL_ENV/lib/python3.10/site-packages/ \
+    STD_CELL_LIBRARY_OPT=sky130_fd_sc_hd \
+    STD_CELL_LIBRARY=sky130_fd_sc_hd \
+    PDK_ROOT=/opt/Si/PDKs/share/pdk \
+    PDK=sky130B \
+    ./flow.tcl \
+    -design /opt/Si/work/inverter/ \
+    -ignore_mismatches
