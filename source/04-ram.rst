@@ -5,6 +5,8 @@ Memory is a subtle thing in chip design. Often when people hear the term "memory
 
 In addition to the more traditional addressable RAM, memory can also be used to form caches, register files, or large buffers. It can also be used to form ROMs, in the case where memory is read-only.
 
+Note that while it is sometimes possible to infer memory designs from Verilog code, there may be cases where the synthesizer fails to recognize a memory block and will instead turn it into a series of flip-flops. This can cause the synthesis duration to balloon to several times its ordinary duration, taking several hours instead of several minutes. Therefore it is recommended to use a :term:`blackbox` whenever possible.
+
 OpenRAM
 -------
 
@@ -16,7 +18,7 @@ OpenRAM
 .. warning::
     OpenRAM has their own version of tools, as well as their own version of the PDK. OpenRAM does not support using the common set of tools or PDK. You **must** use their Docker image, as well as the PDK hosted by them.
 
-OpenRAM memories are comparatively large and dense. The tradeoff is that synthesizing them takes a long time.
+OpenRAM memories are comparatively large and dense. The trade-off is that synthesizing them takes a long time.
 
 DFFRAM
 ------

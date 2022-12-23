@@ -22,7 +22,7 @@ The first step is to actually synthesize the :term:`RTL`. This is done by settin
 OpenSTA
 ^^^^^^^
 
-After the :term:`RTL` is synthesized, it must be analyzed to get a rough idea of what sort of timing we can expect from the finished product. Since we now know what sort of cells we have, this step can also tell us how much of the chip's area is being used. Finally, we can also know which nets form the "critical path" where the worst offenders are.
+After the :term:`RTL` is synthesized, it must be analysed to get a rough idea of what sort of timing we can expect from the finished product. Since we now know what sort of cells we have, this step can also tell us how much of the chip's area is being used. Finally, we can also know which nets form the "critical path" where the worst offenders are.
 
 OpenSTA is bundled as part of ``OpenROAD``, and is invoked using the `sta.tcl <https://github.com/The-OpenROAD-Project/OpenLane/blob/master/scripts/openroad/sta.tcl>`_ script from ``OpenLane``:
 
@@ -160,3 +160,23 @@ You can tie everything together by running ``flow.tcl`` from ``OpenLane``:
     ./flow.tcl \
     -design /opt/Si/work/inverter/ \
     -ignore_mismatches
+
+Important settings
+==================
+
+You can adjust settings by modifying your ``config.json`` or ``config.tcl`` file.
+
+Selecting a Density
+-------------------
+
+There are two important variables that affect routing density and fanout:
+
+* ``FP_CORE_UTIL``
+* ``PL_TARGET_DENSITY``
+
+As a general rule of thumb, set the ``PL_TARGET_DENSITY`` to 5% less than ``FP_CORE_UTIL``.
+
+Defining the default GPIOs
+--------------------------
+
+You will need to modify the ``user_defines.v`` file in order to set the default GPIO pinmux settings. Without modifying these, the pins will be initialized in an indeterminate state.

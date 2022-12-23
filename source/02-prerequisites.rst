@@ -1,7 +1,7 @@
 Prerequisites
 =============
 
-A large numer of tools are required in order to :term:`harden` a design. Each tool performs a very specific task, and most tools are required in order to complete a full flow.
+A large number of tools are required in order to :term:`harden` a design. Each tool performs a very specific task, and most tools are required in order to complete a full flow.
 
 We also need a :term:`PDK`, which is akin to a standard library in a programming language that also defines limits as to what our design can do, such as how small features can be and how quickly transistors can switch.
 
@@ -123,6 +123,8 @@ Klayout is used to generate :term:`GDSII` as an alternative to :term:`magic`. It
 .. code-block:: sh
 
     sudo apt install   gcc g++ make   qttools5-dev libqt5xmlpatterns5-dev qtmultimedia5-dev libqt5multimediawidgets5 libqt5svg5-dev   ruby ruby-dev   python3 python3-dev   libz-dev
+
+2. Clone and compile the program. Note that you can add `-option -j4` to e.g. build with 4 threads.
 
 .. code-block:: sh
 
