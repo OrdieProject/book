@@ -125,6 +125,11 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#running-the-hardening-flow">Running the hardening flow</a></li>
+<li><a class="reference internal" href="#important-settings">Important settings</a><ul>
+<li><a class="reference internal" href="#selecting-a-density">Selecting a Density</a></li>
+<li><a class="reference internal" href="#defining-the-default-gpios">Defining the default GPIOs</a></li>
+</ul>
+</li>
 </ul>
 
     </div>
@@ -190,7 +195,7 @@
 </section>
 <section id="opensta">
 <h3>OpenSTA<a class="headerlink" href="#opensta" title="Permalink to this heading">¶</a></h3>
-<p>After the <a class="reference internal" href="glossary.html#term-RTL"><span class="xref std std-term">RTL</span></a> is synthesized, it must be analyzed to get a rough idea of what sort of timing we can expect from the finished product. Since we now know what sort of cells we have, this step can also tell us how much of the chip’s area is being used. Finally, we can also know which nets form the “critical path” where the worst offenders are.</p>
+<p>After the <a class="reference internal" href="glossary.html#term-RTL"><span class="xref std std-term">RTL</span></a> is synthesized, it must be analysed to get a rough idea of what sort of timing we can expect from the finished product. Since we now know what sort of cells we have, this step can also tell us how much of the chip’s area is being used. Finally, we can also know which nets form the “critical path” where the worst offenders are.</p>
 <p>OpenSTA is bundled as part of <code class="docutils literal notranslate"><span class="pre">OpenROAD</span></code>, and is invoked using the <a class="reference external" href="https://github.com/The-OpenROAD-Project/OpenLane/blob/master/scripts/openroad/sta.tcl">sta.tcl</a> script from <code class="docutils literal notranslate"><span class="pre">OpenLane</span></code>:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>openroad -exit <span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/sta.tcl
 </pre></div>
@@ -318,6 +323,23 @@ openroad -exit <span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/floorplan
 -ignore_mismatches
 </pre></div>
 </div>
+</section>
+<section id="important-settings">
+<h1>Important settings<a class="headerlink" href="#important-settings" title="Permalink to this heading">¶</a></h1>
+<p>You can adjust settings by modifying your <code class="docutils literal notranslate"><span class="pre">config.json</span></code> or <code class="docutils literal notranslate"><span class="pre">config.tcl</span></code> file.</p>
+<section id="selecting-a-density">
+<h2>Selecting a Density<a class="headerlink" href="#selecting-a-density" title="Permalink to this heading">¶</a></h2>
+<p>There are two important variables that affect routing density and fanout:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">FP_CORE_UTIL</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PL_TARGET_DENSITY</span></code></p></li>
+</ul>
+<p>As a general rule of thumb, set the <code class="docutils literal notranslate"><span class="pre">PL_TARGET_DENSITY</span></code> to 5% less than <code class="docutils literal notranslate"><span class="pre">FP_CORE_UTIL</span></code>.</p>
+</section>
+<section id="defining-the-default-gpios">
+<h2>Defining the default GPIOs<a class="headerlink" href="#defining-the-default-gpios" title="Permalink to this heading">¶</a></h2>
+<p>You will need to modify the <code class="docutils literal notranslate"><span class="pre">user_defines.v</span></code> file in order to set the default GPIO pinmux settings. Without modifying these, the pins will be initialized in an indeterminate state.</p>
+</section>
 </section>
 
 <div class="section">

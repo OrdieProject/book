@@ -39,7 +39,7 @@
     <link rel="canonical" href="https://black-magic.org/glossary.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Memory and Memories" href="04-ram.html" /> 
+    <link rel="prev" title="Solving Common Problems" href="05-solving-problems.html" /> 
   
    
   
@@ -76,7 +76,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="04-ram.html" title="Memory and Memories"
+          <a href="05-solving-problems.html" title="Solving Common Problems"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Ordie: The Primordial Microcontroller  documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Glossary</a></li> 
@@ -91,8 +91,8 @@
     <div class="sphinxsidebar">
   <div>
     <h4>Previous topic</h4>
-    <p class="topless"><a href="04-ram.html"
-                          title="previous chapter">Memory and Memories</a></p>
+    <p class="topless"><a href="05-solving-problems.html"
+                          title="previous chapter">Solving Common Problems</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -196,6 +196,12 @@
 </dd>
 <dt id="term-decap">decap<a class="headerlink" href="#term-decap" title="Permalink to this term">¶</a></dt><dd><p>A decap cell is one that is inserted in order to prevent coupling between VDD and VSS.</p>
 </dd>
+<dt id="term-blackbox">blackbox<a class="headerlink" href="#term-blackbox" title="Permalink to this term">¶</a></dt><dd><p>An <a class="reference internal" href="#term-IP"><span class="xref std std-term">IP</span></a> block that exists as just some <a class="reference internal" href="#term-GDSII"><span class="xref std std-term">GDSII</span></a> plus a representation in <a class="reference internal" href="#term-HDL"><span class="xref std std-term">HDL</span></a>. A blackbox may be some proprietary block where you don’t have the source code, or it may be a macro such as a RAM block where you pre-route a subsection of the chip in order to speed up hardening.</p>
+</dd>
+<dt id="term-DV">DV<a class="headerlink" href="#term-DV" title="Permalink to this term">¶</a></dt><dd><p>Design Verification. A series of files that can be used to simulate the final design, either as a testbench that can be used with a simulator or as C code that emulates the final target.</p>
+</dd>
+<dt id="term-GL">GL<a class="headerlink" href="#term-GL" title="Permalink to this term">¶</a></dt><dd><p>Gate-level Verilog. This is the output of design synthesis, and is a one-to-one mapping of logic gates to hardware. When simulating the final design, it is desirable to use gate-level verilog to ensure there are no synthesis bugs.</p>
+</dd>
 </dl>
 </section>
 
@@ -208,7 +214,7 @@
   <div class="footer-relations">
     
       <div class="pull-left">
-        <a class="btn btn-default" href="04-ram.html" title="previous chapter (use the left arrow)">Memory and Memories</a>
+        <a class="btn btn-default" href="05-solving-problems.html" title="previous chapter (use the left arrow)">Solving Common Problems</a>
       </div>
     
     </div>
@@ -224,7 +230,7 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="04-ram.html" title="Memory and Memories"
+          <a href="05-solving-problems.html" title="Solving Common Problems"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Ordie: The Primordial Microcontroller  documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Glossary</a></li> 

@@ -1,0 +1,245 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<meta property="og:title" content="Solving Common Problems" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="05-solving-problems.html" />
+<meta property="og:site_name" content="Ordie: The Primordial Microcontroller" />
+<meta property="og:description" content="There are a number of common pitfalls when hardening a design. Their solutions are not always the most intuitive, however with a little deductive reasoning you can solve problems. Have a look at th..." />
+<meta name="description" content="There are a number of common pitfalls when hardening a design. Their solutions are not always the most intuitive, however with a little deductive reasoning you can solve problems. Have a look at th..." />
+
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>Solving Common Problems &#8212; Ordie: The Primordial Microcontroller  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/guzzle.css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="_static/asciinema-player_2.6.1.css" />
+    <link rel="stylesheet" type="text/css" href="_static/asciinema-custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/platformpicker.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/asciinema-player_2.6.1.js"></script>
+    <script src="_static/platformpicker.js"></script>
+    <link rel="canonical" href="https://black-magic.org/05-solving-problems.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Glossary" href="glossary.html" />
+    <link rel="prev" title="Memory and Memories" href="04-ram.html" /> 
+  
+   
+  
+<style type="text/css">
+  ul.ablog-archive {
+    list-style: none;
+    overflow: auto;
+    margin-left: 0px;
+  }
+  ul.ablog-archive li {
+    float: left;
+    margin-right: 5px;
+    font-size: 80%;
+  }
+  ul.postlist a {
+    font-style: italic;
+  }
+  ul.postlist-style-disc {
+    list-style-type: disc;
+  }
+  ul.postlist-style-none {
+    list-style-type: none;
+  }
+  ul.postlist-style-circle {
+    list-style-type: circle;
+  }
+</style>
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="glossary.html" title="Glossary"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="04-ram.html" title="Memory and Memories"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Ordie: The Primordial Microcontroller  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Solving Common Problems</a></li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Contents</h2>
+    <div class="sidebar-localtoc">
+      <ul>
+<li><a class="reference internal" href="#">Solving Common Problems</a><ul>
+<li><a class="reference internal" href="#synthesis-takes-a-very-long-time">Synthesis Takes a Very Long Time</a></li>
+<li><a class="reference internal" href="#unable-to-place-design">Unable to Place Design</a></li>
+<li><a class="reference internal" href="#unable-to-route-design">Unable to Route Design</a></li>
+<li><a class="reference internal" href="#setup-violation">Setup Violation</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+</div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="04-ram.html"
+                          title="previous chapter">Memory and Memories</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="glossary.html"
+                          title="next chapter">Glossary</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/05-solving-problems.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="index.html">Docs</a></li>
+              
+              <li>Solving Common Problems</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+             <section id="solving-common-problems">
+<h1>Solving Common Problems<a class="headerlink" href="#solving-common-problems" title="Permalink to this heading">¶</a></h1>
+<p>There are a number of common pitfalls when hardening a design. Their solutions are not always the most intuitive, however with a little deductive reasoning you can solve problems.</p>
+<p><strong>Have a look at the design in the OpenRoad GUI</strong>. If you have OpenRoad installed, run <code class="docutils literal notranslate"><span class="pre">openroad</span> <span class="pre">-gui</span></code> and load the offending <code class="docutils literal notranslate"><span class="pre">.odb</span></code> file.  This can be accomplished using the <code class="docutils literal notranslate"><span class="pre">read_db</span></code> command, or by selecting <code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">DB</span></code> from the <code class="docutils literal notranslate"><span class="pre">File</span></code> menu. The offending file can be found in <code class="docutils literal notranslate"><span class="pre">openlane/$DESIGN/runs/$RUN/tmp/$STEP/*.odb</span></code>.</p>
+<section id="synthesis-takes-a-very-long-time">
+<h2>Synthesis Takes a Very Long Time<a class="headerlink" href="#synthesis-takes-a-very-long-time" title="Permalink to this heading">¶</a></h2>
+<p>If your synthesis process takes a very long time, you may need to simplify your design. Depending on the design, this may be either easy or difficult.</p>
+<ul class="simple">
+<li><p><strong>Avoid using large memories</strong>. While the synthesizer is capable of synthesizing memories from Verilog, this is profoundly inefficient and can take a long time. Instead, prefer to use blackbox memories from either <code class="docutils literal notranslate"><span class="pre">OpenRam</span></code> or <code class="docutils literal notranslate"><span class="pre">DFFRAM</span></code>.</p></li>
+<li><p><strong>Use blackbox sub-designs</strong>. If it takes a long time to place and route the entire design, you can break it up into multiple sub-projects. That way, your top project consists of just a single project with multiple holes in it, allowing you to pre-synthesize (and pre-place and pre-route) chunks of your project.</p></li>
+</ul>
+</section>
+<section id="unable-to-place-design">
+<h2>Unable to Place Design<a class="headerlink" href="#unable-to-place-design" title="Permalink to this heading">¶</a></h2>
+<p>OpenLane may be unable to place elements into your design if it contains a lot of elements in a small amount of space.</p>
+<p>Placement involves roughly scattering elements around, then shuffling them into place so that they don’t overlap while common elements stay close together.</p>
+<p>If the placement step fails, try the following:</p>
+<ul class="simple">
+<li><p><strong>Increase the die area</strong> – The die area is set by both the <code class="docutils literal notranslate"><span class="pre">DIE_AREA</span></code> and the <code class="docutils literal notranslate"><span class="pre">FP_SIZING</span></code> configuration variables. The die area for MPW runs is <code class="docutils literal notranslate"><span class="pre">2.92mm</span> <span class="pre">x</span> <span class="pre">3.52mm</span></code>, so the maximum size available here is <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">0</span> <span class="pre">2920</span> <span class="pre">3520</span></code> when <code class="docutils literal notranslate"><span class="pre">FP_SIZING</span></code> is set to <code class="docutils literal notranslate"><span class="pre">absolute</span></code>.</p></li>
+<li><p><strong>Increase placement density</strong> – The placer will add space between cells in order to run wires and buffers. Increase <code class="docutils literal notranslate"><span class="pre">FP_CORE_UTIL</span></code> and <code class="docutils literal notranslate"><span class="pre">PL_TARGET_DENSITY</span></code> in order to reduce this space. These values are percentages, and should be between 20% and 70%. <code class="docutils literal notranslate"><span class="pre">PL_TARGET_DENSITY</span></code> goes from <code class="docutils literal notranslate"><span class="pre">0.00</span></code> to <code class="docutils literal notranslate"><span class="pre">1.00</span></code>, and <code class="docutils literal notranslate"><span class="pre">FP_CORE_UTIL</span></code> goes from <code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">100</span></code>. Ordinarily you should set <code class="docutils literal notranslate"><span class="pre">FP_CORE_UTIL</span></code> to be 5% more than <code class="docutils literal notranslate"><span class="pre">PL_TARGET_DENSITY</span></code>.</p></li>
+<li><p><strong>Change placement strategy</strong> – If you’re having trouble routing elements, you can try changing the placement strategy to reduce the number of elements that need to be placed. Use <code class="docutils literal notranslate"><span class="pre">-synth_explore</span></code> (TODO: write how to invoke this) in order to find a more efficient placement strategy, then set the <code class="docutils literal notranslate"><span class="pre">SYNTH_STRATEGY</span></code> variable.  An example strategy might be <code class="docutils literal notranslate"><span class="pre">AREA</span> <span class="pre">2</span></code>.</p></li>
+</ul>
+</section>
+<section id="unable-to-route-design">
+<h2>Unable to Route Design<a class="headerlink" href="#unable-to-route-design" title="Permalink to this heading">¶</a></h2>
+<p>If OpenLane is unable to route the design, it means that it cannot fit enough wires between the cells in order to connect various instances together.</p>
+<p>The solution is to relax density, allowing more space for wires.</p>
+<ul class="simple">
+<li><p><strong>Decrease placement density</strong> – If elements are too close together, the router may not be able to add wires to your design. Reduce the placement density by lowering <code class="docutils literal notranslate"><span class="pre">PL_TARGET_DENSITY</span></code> and <code class="docutils literal notranslate"><span class="pre">FP_CORE_UTIL</span></code>. Note that this is in direct opposition to placement, so the goal is to find a sweet spot where the design can place and also route.</p></li>
+<li><p><strong>Reduce bus widths</strong> – If you have very wide buses, this requires routing many signals in parallel, which increases density in parts of the design.</p></li>
+</ul>
+</section>
+<section id="setup-violation">
+<h2>Setup Violation<a class="headerlink" href="#setup-violation" title="Permalink to this heading">¶</a></h2>
+<p>A Setup Violation generally means that the design successfully placed and routed, but the design would not meet timing at the given frequency.</p>
+<ul class="simple">
+<li><p><strong>Lower the frequency</strong>. You can increase the <code class="docutils literal notranslate"><span class="pre">CLOCK_PERIOD</span></code> to space clocks further apart, resulting in a lower frequency.</p></li>
+</ul>
+</section>
+</section>
+
+<div class="section">
+   
+</div>
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="04-ram.html" title="previous chapter (use the left arrow)">Memory and Memories</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="glossary.html" title="next chapter (use the right arrow)">Glossary</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="glossary.html" title="Glossary"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="04-ram.html" title="Memory and Memories"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Ordie: The Primordial Microcontroller  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Solving Common Problems</a></li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2022, Sean "xobs" Cross. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  </body>
+</html>

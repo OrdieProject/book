@@ -100,3 +100,12 @@ This page describes terms that are used in the Ordie project, as well as in open
 
     decap
         A decap cell is one that is inserted in order to prevent coupling between VDD and VSS.
+
+    blackbox
+        An :term:`IP` block that exists as just some :term:`GDSII` plus a representation in :term:`HDL`. A blackbox may be some proprietary block where you don't have the source code, or it may be a macro such as a RAM block where you pre-route a subsection of the chip in order to speed up hardening.
+
+    DV
+        Design Verification. A series of files that can be used to simulate the final design, either as a testbench that can be used with a simulator or as C code that emulates the final target.
+
+    GL
+        Gate-level Verilog. This is the output of design synthesis, and is a one-to-one mapping of logic gates to hardware. When simulating the final design, it is desirable to use gate-level verilog to ensure there are no synthesis bugs.

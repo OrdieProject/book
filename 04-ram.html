@@ -39,7 +39,7 @@
     <link rel="canonical" href="https://black-magic.org/04-ram.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Glossary" href="glossary.html" />
+    <link rel="next" title="Solving Common Problems" href="05-solving-problems.html" />
     <link rel="prev" title="Hardening Overview" href="03-hardening-overview.html" /> 
   
    
@@ -77,7 +77,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="glossary.html" title="Glossary"
+          <a href="05-solving-problems.html" title="Solving Common Problems"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="03-hardening-overview.html" title="Hardening Overview"
@@ -115,8 +115,8 @@
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="glossary.html"
-                          title="next chapter">Glossary</a></p>
+    <p class="topless"><a href="05-solving-problems.html"
+                          title="next chapter">Solving Common Problems</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -156,6 +156,7 @@
 <h1>Memory and Memories<a class="headerlink" href="#memory-and-memories" title="Permalink to this heading">¶</a></h1>
 <p>Memory is a subtle thing in chip design. Often when people hear the term “memory” they think of addressable, volatile storage. However memories can be far more than that.</p>
 <p>In addition to the more traditional addressable RAM, memory can also be used to form caches, register files, or large buffers. It can also be used to form ROMs, in the case where memory is read-only.</p>
+<p>Note that while it is sometimes possible to infer memory designs from Verilog code, there may be cases where the synthesizer fails to recognize a memory block and will instead turn it into a series of flip-flops. This can cause the synthesis duration to balloon to several times its ordinary duration, taking several hours instead of several minutes. Therefore it is recommended to use a <a class="reference internal" href="glossary.html#term-blackbox"><span class="xref std std-term">blackbox</span></a> whenever possible.</p>
 <section id="openram">
 <h2>OpenRAM<a class="headerlink" href="#openram" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="https://github.com/VLSIDA/OpenRAM">OpenRAM</a> is currently the most efficient open source RAM compiler. It will create memory of an arbitrary width and depth and ensure the resulting design meets timing requirements.</p>
@@ -167,7 +168,7 @@
 <p class="admonition-title">Warning</p>
 <p>OpenRAM has their own version of tools, as well as their own version of the PDK. OpenRAM does not support using the common set of tools or PDK. You <strong>must</strong> use their Docker image, as well as the PDK hosted by them.</p>
 </div>
-<p>OpenRAM memories are comparatively large and dense. The tradeoff is that synthesizing them takes a long time.</p>
+<p>OpenRAM memories are comparatively large and dense. The trade-off is that synthesizing them takes a long time.</p>
 </section>
 <section id="dffram">
 <h2>DFFRAM<a class="headerlink" href="#dffram" title="Permalink to this heading">¶</a></h2>
@@ -188,7 +189,7 @@
       </div>
     
       <div class="pull-right">
-        <a class="btn btn-default" href="glossary.html" title="next chapter (use the right arrow)">Glossary</a>
+        <a class="btn btn-default" href="05-solving-problems.html" title="next chapter (use the right arrow)">Solving Common Problems</a>
       </div>
     </div>
     <div class="clearer"></div>
@@ -203,7 +204,7 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="glossary.html" title="Glossary"
+          <a href="05-solving-problems.html" title="Solving Common Problems"
              >next</a> |</li>
         <li class="right" >
           <a href="03-hardening-overview.html" title="Hardening Overview"

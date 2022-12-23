@@ -9,8 +9,8 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="index.html" />
 <meta property="og:site_name" content="Ordie: The Primordial Microcontroller" />
-<meta property="og:description" content="Contents:: Introduction, Prerequisites, Creating a Python venv, Installing Required Software- Magic, OpenROAD, OpenLane, Yosys, KLayout, netgen, Circuit Validity Checker., OpenRAM, PDK- Prebuilt PD..." />
-<meta name="description" content="Contents:: Introduction, Prerequisites, Creating a Python venv, Installing Required Software- Magic, OpenROAD, OpenLane, Yosys, KLayout, netgen, Circuit Validity Checker., OpenRAM, PDK- Prebuilt PD..." />
+<meta property="og:description" content="Contents:: Introduction- Hardening Steps., Prerequisites, Creating a Python venv, Installing Required Software- Magic, OpenROAD, OpenLane, Yosys, KLayout, netgen, Circuit Validity Checker., OpenRAM..." />
+<meta name="description" content="Contents:: Introduction- Hardening Steps., Prerequisites, Creating a Python venv, Installing Required Software- Magic, OpenROAD, OpenLane, Yosys, KLayout, netgen, Circuit Validity Checker., OpenRAM..." />
 
   
   <!-- Licensed under the Apache 2.0 License -->
@@ -145,7 +145,10 @@
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="01-intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01-intro.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="01-intro.html#hardening-steps">Hardening Steps</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="02-prerequisites.html">Prerequisites</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02-prerequisites.html#creating-a-python-venv">Creating a Python venv</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02-prerequisites.html#installing-required-software">Installing Required Software</a><ul>
@@ -173,9 +176,21 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="03-hardening-overview.html#running-the-hardening-flow">Running the hardening flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-hardening-overview.html#important-settings">Important settings</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="03-hardening-overview.html#selecting-a-density">Selecting a Density</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03-hardening-overview.html#defining-the-default-gpios">Defining the default GPIOs</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="04-ram.html">Memory and Memories</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="04-ram.html#openram">OpenRAM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="04-ram.html#dffram">DFFRAM</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="05-solving-problems.html">Solving Common Problems</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="05-solving-problems.html#synthesis-takes-a-very-long-time">Synthesis Takes a Very Long Time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05-solving-problems.html#unable-to-place-design">Unable to Place Design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05-solving-problems.html#unable-to-route-design">Unable to Route Design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05-solving-problems.html#setup-violation">Setup Violation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>

@@ -9,8 +9,8 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="01-intro.html" />
 <meta property="og:site_name" content="Ordie: The Primordial Microcontroller" />
-<meta property="og:description" content="This book details the steps necessary to harden a design from a soft FPGA to physical silicon." />
-<meta name="description" content="This book details the steps necessary to harden a design from a soft FPGA to physical silicon." />
+<meta property="og:description" content="This book details the steps necessary to harden a design from a soft FPGA to physical silicon. Hardening Steps: In order to harden a design, generally the following steps are taken in order: Valida..." />
+<meta name="description" content="This book details the steps necessary to harden a design from a soft FPGA to physical silicon. Hardening Steps: In order to harden a design, generally the following steps are taken in order: Valida..." />
 
   
   <!-- Licensed under the Apache 2.0 License -->
@@ -93,6 +93,20 @@
       </div>
   <div id="left-column">
     <div class="sphinxsidebar">
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Contents</h2>
+    <div class="sidebar-localtoc">
+      <ul>
+<li><a class="reference internal" href="#">Introduction</a><ul>
+<li><a class="reference internal" href="#hardening-steps">Hardening Steps</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+</div>
   <div>
     <h4>Previous topic</h4>
     <p class="topless"><a href="index.html"
@@ -140,6 +154,24 @@
              <section id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h1>
 <p>This book details the steps necessary to <a class="reference internal" href="glossary.html#term-harden"><span class="xref std std-term">harden</span></a> a design from a soft FPGA to physical silicon.</p>
+<section id="hardening-steps">
+<h2>Hardening Steps<a class="headerlink" href="#hardening-steps" title="Permalink to this heading">¶</a></h2>
+<p>In order to harden a design, generally the following steps are taken in order:</p>
+<ol class="arabic simple">
+<li><p>Validate the design works. If you’re using Verilog, an FPGA can be helpful here. At the very least, use a simulator to ensure the design functions correctly.</p></li>
+<li><p>Clone the Caravel project. Go to <a class="reference external" href="https://github.com/efabless/caravel_user_project/generate">https://github.com/efabless/caravel_user_project/generate</a> to do so.</p></li>
+<li><p>Copy <cite>openlane/user_proj_example</cite> to your own project name, e.g. <cite>openlane/my_project</cite></p></li>
+<li><p>Modify the <cite>config.json</cite> in the new project:</p></li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Adjust <cite>DESIGN_NAME</cite> to reflect your top macro</p></li>
+<li><p>Set <cite>DIE_AREA</cite> to the area of your project</p></li>
+<li><p>Modify <cite>VERILOG_FILES</cite> to include the path to your topfile, as well as Verilog files – wildcards are supported</p></li>
+<li><p>Adjust <cite>CLOCK_NET</cite> and <cite>CLOCK_PORT</cite> to reflect the clock signals in your design</p></li>
+</ol>
+</div></blockquote>
+</section>
 </section>
 
 <div class="section">
