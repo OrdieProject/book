@@ -103,6 +103,9 @@
 <li><a class="reference internal" href="#unable-to-place-design">Unable to Place Design</a></li>
 <li><a class="reference internal" href="#unable-to-route-design">Unable to Route Design</a></li>
 <li><a class="reference internal" href="#setup-violation">Setup Violation</a></li>
+<li><a class="reference internal" href="#there-are-violations-in-the-design-after-detailed-routing">There are violations in the design after detailed routing</a></li>
+<li><a class="reference internal" href="#git-push-this-exceeds-github-s-file-size-limit-of-100-00-mb">git push: … this exceeds GitHub’s file size limit of 100.00 MB</a></li>
+<li><a class="reference internal" href="#there-are-lvs-errors-in-the-design">There are LVS errors in the design</a></li>
 </ul>
 </li>
 </ul>
@@ -192,6 +195,29 @@
 <ul class="simple">
 <li><p><strong>Lower the frequency</strong>. You can increase the <code class="docutils literal notranslate"><span class="pre">CLOCK_PERIOD</span></code> to space clocks further apart, resulting in a lower frequency.</p></li>
 </ul>
+</section>
+<section id="there-are-violations-in-the-design-after-detailed-routing">
+<h2>There are violations in the design after detailed routing<a class="headerlink" href="#there-are-violations-in-the-design-after-detailed-routing" title="Permalink to this heading">¶</a></h2>
+<p>Sometimes you will find this cryptic error, followed by a number indicating how many violations there were. It will not tell you what the violations were, just that they exist.</p>
+<p>One workaround is to reduce the met1 resource by setting <code class="docutils literal notranslate"><span class="pre">GRT_ADJUSTMENT</span></code> to <code class="docutils literal notranslate"><span class="pre">0.8</span></code>, instead of the default <code class="docutils literal notranslate"><span class="pre">0.3</span></code>.</p>
+<p>You should do this even if the error is present in <code class="docutils literal notranslate"><span class="pre">user_project_wrapper</span></code> – adjust <code class="docutils literal notranslate"><span class="pre">openroad/user_project_wraper/config.json</span></code> instead of your project.</p>
+</section>
+<section id="git-push-this-exceeds-github-s-file-size-limit-of-100-00-mb">
+<h2>git push: … this exceeds GitHub’s file size limit of 100.00 MB<a class="headerlink" href="#git-push-this-exceeds-github-s-file-size-limit-of-100-00-mb" title="Permalink to this heading">¶</a></h2>
+<p>When submitting files, you will likely run into a limitation of Github where files may only be 100 MB in size. This is a problem for EDA, since files regularly exceed 150 MB.</p>
+<p>There is an undocumented Makefile target: <code class="docutils literal notranslate"><span class="pre">compress</span></code>. Run this command to compress any files that are larger than 100 MB, and split them into separate files as necessary.</p>
+<p>The inverse – <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">decompress</span></code> – can be used to undo this process.</p>
+</section>
+<section id="there-are-lvs-errors-in-the-design">
+<h2>There are LVS errors in the design<a class="headerlink" href="#there-are-lvs-errors-in-the-design" title="Permalink to this heading">¶</a></h2>
+<p>This error appears when the resulting <a class="reference internal" href="glossary.html#term-LVS"><span class="xref std std-term">LVS</span></a> is different from the input <a class="reference internal" href="glossary.html#term-HDL"><span class="xref std std-term">HDL</span></a>. Open the <code class="docutils literal notranslate"><span class="pre">.lef.log</span></code> file and scroll to the bottom. You will see something like the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Circuit</span> <span class="mi">1</span> <span class="n">contains</span> <span class="n">wwwwwww</span> <span class="n">devices</span><span class="p">,</span> <span class="n">Circuit</span> <span class="mi">2</span> <span class="n">contains</span> <span class="n">xxxxxxx</span> <span class="n">devices</span><span class="o">.</span> <span class="o">***</span> <span class="n">MISMATCH</span> <span class="o">***</span>
+<span class="n">Circuit</span> <span class="mi">1</span> <span class="n">contains</span> <span class="n">yyyyyyyy</span> <span class="n">nets</span><span class="p">,</span>    <span class="n">Circuit</span> <span class="mi">2</span> <span class="n">contains</span> <span class="n">zzzzzzzz</span> <span class="n">nets</span><span class="o">.</span> <span class="o">***</span> <span class="n">MISMATCH</span> <span class="o">***</span>
+</pre></div>
+</div>
+<p>Here, <code class="docutils literal notranslate"><span class="pre">Circuit</span> <span class="pre">1</span></code> is the layout – that is, what will be placed on the chip.  <code class="docutils literal notranslate"><span class="pre">Circuit</span> <span class="pre">2</span></code> is your original verilog.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">yyyyyyyy</span></code> is larger than <code class="docutils literal notranslate"><span class="pre">zzzzzzzz</span></code>, then it might mean there are missing power rails in the Verilog.</p>
+<p>Inside the <code class="docutils literal notranslate"><span class="pre">.lef.log</span></code> file you will see a line that starts with: <code class="docutils literal notranslate"><span class="pre">Comparison</span> <span class="pre">output</span> <span class="pre">logged</span> <span class="pre">to</span> <span class="pre">file</span> <span class="pre">...</span></code>. Open this file to get an idea of what nets are different between the two.</p>
 </section>
 </section>
 

@@ -42,3 +42,38 @@ Setup Violation
 A Setup Violation generally means that the design successfully placed and routed, but the design would not meet timing at the given frequency.
 
 * **Lower the frequency**. You can increase the ``CLOCK_PERIOD`` to space clocks further apart, resulting in a lower frequency.
+
+There are violations in the design after detailed routing
+---------------------------------------------------------
+
+Sometimes you will find this cryptic error, followed by a number indicating how many violations there were. It will not tell you what the violations were, just that they exist.
+
+One workaround is to reduce the met1 resource by setting ``GRT_ADJUSTMENT`` to ``0.8``, instead of the default ``0.3``.
+
+You should do this even if the error is present in ``user_project_wrapper`` -- adjust ``openroad/user_project_wraper/config.json`` instead of your project.
+
+git push: ... this exceeds GitHub's file size limit of 100.00 MB
+----------------------------------------------------------------
+
+When submitting files, you will likely run into a limitation of Github where files may only be 100 MB in size. This is a problem for EDA, since files regularly exceed 150 MB.
+
+There is an undocumented Makefile target: ``compress``. Run this command to compress any files that are larger than 100 MB, and split them into separate files as necessary.
+
+The inverse -- ``make decompress`` -- can be used to undo this process.
+
+There are LVS errors in the design
+----------------------------------
+
+This error appears when the resulting :term:`LVS` is different from the input :term:`HDL`. Open the ``.lef.log`` file and scroll to the bottom. You will see something like the following:
+
+.. code-block::
+
+    Circuit 1 contains wwwwwww devices, Circuit 2 contains xxxxxxx devices. *** MISMATCH ***
+    Circuit 1 contains yyyyyyyy nets,    Circuit 2 contains zzzzzzzz nets. *** MISMATCH ***
+
+
+Here, ``Circuit 1`` is the layout -- that is, what will be placed on the chip.  ``Circuit 2`` is your original verilog.
+
+If ``yyyyyyyy`` is larger than ``zzzzzzzz``, then it might mean there are missing power rails in the Verilog.
+
+Inside the ``.lef.log`` file you will see a line that starts with: ``Comparison output logged to file ...``. Open this file to get an idea of what nets are different between the two.
