@@ -39,7 +39,7 @@
     <link rel="canonical" href="https://black-magic.org/05-solving-problems.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Glossary" href="glossary.html" />
+    <link rel="next" title="Walkthrough" href="walkthrough.html" />
     <link rel="prev" title="Memory and Memories" href="04-ram.html" /> 
   
    
@@ -77,7 +77,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="glossary.html" title="Glossary"
+          <a href="walkthrough.html" title="Walkthrough"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="04-ram.html" title="Memory and Memories"
@@ -106,6 +106,7 @@
 <li><a class="reference internal" href="#there-are-violations-in-the-design-after-detailed-routing">There are violations in the design after detailed routing</a></li>
 <li><a class="reference internal" href="#git-push-this-exceeds-github-s-file-size-limit-of-100-00-mb">git push: … this exceeds GitHub’s file size limit of 100.00 MB</a></li>
 <li><a class="reference internal" href="#there-are-lvs-errors-in-the-design">There are LVS errors in the design</a></li>
+<li><a class="reference internal" href="#there-are-hold-violations-in-the-design-at-the-typical-corner">There are hold violations in the design at the typical corner</a></li>
 </ul>
 </li>
 </ul>
@@ -120,8 +121,8 @@
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="glossary.html"
-                          title="next chapter">Glossary</a></p>
+    <p class="topless"><a href="walkthrough.html"
+                          title="next chapter">Walkthrough</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -166,7 +167,7 @@
 <p>If your synthesis process takes a very long time, you may need to simplify your design. Depending on the design, this may be either easy or difficult.</p>
 <ul class="simple">
 <li><p><strong>Avoid using large memories</strong>. While the synthesizer is capable of synthesizing memories from Verilog, this is profoundly inefficient and can take a long time. Instead, prefer to use blackbox memories from either <code class="docutils literal notranslate"><span class="pre">OpenRam</span></code> or <code class="docutils literal notranslate"><span class="pre">DFFRAM</span></code>.</p></li>
-<li><p><strong>Use blackbox sub-designs</strong>. If it takes a long time to place and route the entire design, you can break it up into multiple sub-projects. That way, your top project consists of just a single project with multiple holes in it, allowing you to pre-synthesize (and pre-place and pre-route) chunks of your project.</p></li>
+<li><p><strong>Use blackbox sub-designs</strong>. If it takes a long time to place and route the entire design, you can break it up into multiple sub-projects. That way, your top project consists of just a single project with multiple holes in it, allowing you to pre-synthesize (and pre-place and pre-route) chunks of your project. <strong>Be very careful with hold violations</strong>! The tools do not currently check for timing closure between black boxes, so this can cause failures in the final design.</p></li>
 </ul>
 </section>
 <section id="unable-to-place-design">
@@ -219,6 +220,9 @@
 <p>If <code class="docutils literal notranslate"><span class="pre">yyyyyyyy</span></code> is larger than <code class="docutils literal notranslate"><span class="pre">zzzzzzzz</span></code>, then it might mean there are missing power rails in the Verilog.</p>
 <p>Inside the <code class="docutils literal notranslate"><span class="pre">.lef.log</span></code> file you will see a line that starts with: <code class="docutils literal notranslate"><span class="pre">Comparison</span> <span class="pre">output</span> <span class="pre">logged</span> <span class="pre">to</span> <span class="pre">file</span> <span class="pre">...</span></code>. Open this file to get an idea of what nets are different between the two.</p>
 </section>
+<section id="there-are-hold-violations-in-the-design-at-the-typical-corner">
+<h2>There are hold violations in the design at the typical corner<a class="headerlink" href="#there-are-hold-violations-in-the-design-at-the-typical-corner" title="Permalink to this heading">¶</a></h2>
+</section>
 </section>
 
 <div class="section">
@@ -234,7 +238,7 @@
       </div>
     
       <div class="pull-right">
-        <a class="btn btn-default" href="glossary.html" title="next chapter (use the right arrow)">Glossary</a>
+        <a class="btn btn-default" href="walkthrough.html" title="next chapter (use the right arrow)">Walkthrough</a>
       </div>
     </div>
     <div class="clearer"></div>
@@ -249,7 +253,7 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="glossary.html" title="Glossary"
+          <a href="walkthrough.html" title="Walkthrough"
              >next</a> |</li>
         <li class="right" >
           <a href="04-ram.html" title="Memory and Memories"

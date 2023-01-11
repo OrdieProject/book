@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<meta property="og:title" content="Walkthrough" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="walkthrough.html" />
+<meta property="og:site_name" content="Ordie: The Primordial Microcontroller" />
+<meta property="og:description" content="Create a new Caravel user project from the template at https://github.com/efabless/caravel_user_project/, Clone the resulting project, and change to the resulting directory., Add a .gitattributes f..." />
+<meta name="description" content="Create a new Caravel user project from the template at https://github.com/efabless/caravel_user_project/, Clone the resulting project, and change to the resulting directory., Add a .gitattributes f..." />
+
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>Walkthrough &#8212; Ordie: The Primordial Microcontroller  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/guzzle.css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="_static/asciinema-player_2.6.1.css" />
+    <link rel="stylesheet" type="text/css" href="_static/asciinema-custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/platformpicker.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/asciinema-player_2.6.1.js"></script>
+    <script src="_static/platformpicker.js"></script>
+    <link rel="canonical" href="https://black-magic.org/walkthrough.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Glossary" href="glossary.html" />
+    <link rel="prev" title="Solving Common Problems" href="05-solving-problems.html" /> 
+  
+   
+  
+<style type="text/css">
+  ul.ablog-archive {
+    list-style: none;
+    overflow: auto;
+    margin-left: 0px;
+  }
+  ul.ablog-archive li {
+    float: left;
+    margin-right: 5px;
+    font-size: 80%;
+  }
+  ul.postlist a {
+    font-style: italic;
+  }
+  ul.postlist-style-disc {
+    list-style-type: disc;
+  }
+  ul.postlist-style-none {
+    list-style-type: none;
+  }
+  ul.postlist-style-circle {
+    list-style-type: circle;
+  }
+</style>
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="glossary.html" title="Glossary"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="05-solving-problems.html" title="Solving Common Problems"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Ordie: The Primordial Microcontroller  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Walkthrough</a></li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="05-solving-problems.html"
+                          title="previous chapter">Solving Common Problems</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="glossary.html"
+                          title="next chapter">Glossary</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/walkthrough.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="index.html">Docs</a></li>
+              
+              <li>Walkthrough</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+             <section id="walkthrough">
+<h1>Walkthrough<a class="headerlink" href="#walkthrough" title="Permalink to this heading">¶</a></h1>
+<ol class="arabic simple">
+<li><p>Create a new Caravel user project from the template at <a class="reference external" href="https://github.com/efabless/caravel_user_project/">https://github.com/efabless/caravel_user_project/</a></p></li>
+<li><p>Clone the resulting project, and change to the resulting directory.</p></li>
+<li><p>Add a .gitattributes file, if you like</p></li>
+<li><p>Add an <code class="docutils literal notranslate"><span class="pre">activate-caravel.sh</span></code> script, and <strong>be sure to run this script every time you want to work on the project</strong>.</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">setup</span></code> to download the necessary files</p></li>
+<li><dl class="simple">
+<dt>If you have submodules, add them.</dt><dd><ol class="arabic simple">
+<li><p>Add Verilog code to verilog/rtl/</p></li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><p>Rename <code class="docutils literal notranslate"><span class="pre">openlane/user_proj_example</span></code> to <code class="docutils literal notranslate"><span class="pre">openlane/your_project_name</span></code></p></li>
+<li><p>Rename <code class="docutils literal notranslate"><span class="pre">verilog/rtl/user_proj_example.v</span></code> to <code class="docutils literal notranslate"><span class="pre">verilog/rtl/your_project_name.v</span></code></p></li>
+<li><p>Modify <code class="docutils literal notranslate"><span class="pre">verilog/rtl/your_project_name.v</span></code> and add your custom Verilog.</p></li>
+<li><p>Modify <code class="docutils literal notranslate"><span class="pre">openlane/your_project_name/config.json</span></code>:
+1. Change <code class="docutils literal notranslate"><span class="pre">DESIGN_NAME</span></code> to match the top module inside <code class="docutils literal notranslate"><span class="pre">your_project_name.v</span></code>
+2. Add all Verilog files to <code class="docutils literal notranslate"><span class="pre">VERILOG_FILES</span></code>, including changing <code class="docutils literal notranslate"><span class="pre">user_proj_example.v</span></code>. Wildcards are supported here.
+3. Modify <code class="docutils literal notranslate"><span class="pre">CLOCK_NET</span></code> and give it the net name of your clock(s)</p></li>
+</ol>
+<p>activate-caravel.sh</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;activate-caravel.sh&quot;</span><span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Don&#39;t run </span><span class="nv">$0</span><span class="s2">, source it by running &#39;. </span><span class="nv">$0</span><span class="s2">&#39;&quot;</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Alternately, set the &#39;OPENLANE_ROOT&#39;, &#39;PDK_ROOT&#39;, and &#39;PDK&#39; environment variables manually&quot;</span>
+<span class="w">   </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fi</span>
+
+<span class="nb">export</span><span class="w"> </span><span class="nv">OPENLANE_ROOT</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/dependencies/openlane_src
+<span class="nb">export</span><span class="w"> </span><span class="nv">PDK_ROOT</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/dependencies/pdks
+<span class="nb">export</span><span class="w"> </span><span class="nv">PDK</span><span class="o">=</span>sky130A
+
+<span class="c1"># Note: these go outside of the project directory in order to help pass</span>
+<span class="c1"># precheck, which traverses the entire project directory looking for</span>
+<span class="c1"># violating files, including inside the ``dependencies`` directory.</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PRECHECK_ROOT</span><span class="o">=</span><span class="k">$(</span>realpath<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/..<span class="k">)</span>/dependencies/precheck
+<span class="nb">export</span><span class="w"> </span><span class="nv">CARAVEL_ROOT</span><span class="o">=</span><span class="k">$(</span>realpath<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/..<span class="k">)</span>/dependencies/caravel
+<span class="nb">export</span><span class="w"> </span><span class="nv">MCW_ROOT</span><span class="o">=</span><span class="k">$(</span>realpath<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/..<span class="k">)</span>/dependencies/mgmt_core_wrapper
+</pre></div>
+</div>
+</section>
+
+<div class="section">
+   
+</div>
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="05-solving-problems.html" title="previous chapter (use the left arrow)">Solving Common Problems</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="glossary.html" title="next chapter (use the right arrow)">Glossary</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="glossary.html" title="Glossary"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="05-solving-problems.html" title="Solving Common Problems"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Ordie: The Primordial Microcontroller  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Walkthrough</a></li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2022, Sean "xobs" Cross. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  </body>
+</html>

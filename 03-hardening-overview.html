@@ -189,7 +189,7 @@
 <section id="yosys">
 <h3>Yosys<a class="headerlink" href="#yosys" title="Permalink to this heading">¶</a></h3>
 <p>The first step is to actually synthesize the <a class="reference internal" href="glossary.html#term-RTL"><span class="xref std std-term">RTL</span></a>. This is done by setting a number of environment variables, then running <code class="docutils literal notranslate"><span class="pre">yosys</span></code> and passing it the script <a class="reference external" href="https://github.com/The-OpenROAD-Project/OpenLane/blob/master/scripts/yosys/synth.tcl">synth.tcl</a>. This performs synthesis and generates a netlist file according to the <code class="docutils literal notranslate"><span class="pre">SAVE_NETLIST</span></code> environment variable.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>yosys -c <span class="nv">$OPENLANE_ROOT</span>/scripts/yosys/synth.tcl
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>yosys<span class="w"> </span>-c<span class="w"> </span><span class="nv">$OPENLANE_ROOT</span>/scripts/yosys/synth.tcl
 </pre></div>
 </div>
 </section>
@@ -197,7 +197,7 @@
 <h3>OpenSTA<a class="headerlink" href="#opensta" title="Permalink to this heading">¶</a></h3>
 <p>After the <a class="reference internal" href="glossary.html#term-RTL"><span class="xref std std-term">RTL</span></a> is synthesized, it must be analysed to get a rough idea of what sort of timing we can expect from the finished product. Since we now know what sort of cells we have, this step can also tell us how much of the chip’s area is being used. Finally, we can also know which nets form the “critical path” where the worst offenders are.</p>
 <p>OpenSTA is bundled as part of <code class="docutils literal notranslate"><span class="pre">OpenROAD</span></code>, and is invoked using the <a class="reference external" href="https://github.com/The-OpenROAD-Project/OpenLane/blob/master/scripts/openroad/sta.tcl">sta.tcl</a> script from <code class="docutils literal notranslate"><span class="pre">OpenLane</span></code>:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>openroad -exit <span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/sta.tcl
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>openroad<span class="w"> </span>-exit<span class="w"> </span><span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/sta.tcl
 </pre></div>
 </div>
 </section>
@@ -211,8 +211,8 @@
 <p>This step takes the <a class="reference internal" href="glossary.html#term-RTL"><span class="xref std std-term">RTL</span></a> and places the cells in the specified area, ensuring that the cells all actually fit. It does this by dividing the area into rows and filling in components as it goes. This step also inserts any <a class="reference internal" href="glossary.html#term-tie-cell"><span class="xref std std-term">tie cell</span></a> that is required.</p>
 <p>This reads <code class="docutils literal notranslate"><span class="pre">merged.nom.lef</span></code> and writes its output to the same file.</p>
 <p>Note: It is currently unclear why this step is run twice.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>openroad -exit <span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/floorplan.tcl
-openroad -exit <span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/floorplan.tcl
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>openroad<span class="w"> </span>-exit<span class="w"> </span><span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/floorplan.tcl
+openroad<span class="w"> </span>-exit<span class="w"> </span><span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/floorplan.tcl
 </pre></div>
 </div>
 </section>
@@ -220,7 +220,7 @@ openroad -exit <span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/floorplan
 <h3>ioplacer<a class="headerlink" href="#ioplacer" title="Permalink to this heading">¶</a></h3>
 <p>Every cell that was added has input and output pins. For example, if the synthesized <a class="reference internal" href="glossary.html#term-RTL"><span class="xref std std-term">RTL</span></a> contains an inverter, that inverter will have two pins.</p>
 <p>The IO Placer step adds these pins to the design in random locations (?).</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>openroad -exit <span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/ioplacer.tcl
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>openroad<span class="w"> </span>-exit<span class="w"> </span><span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/ioplacer.tcl
 </pre></div>
 </div>
 </section>
@@ -231,7 +231,7 @@ openroad -exit <span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/floorplan
 <p class="admonition-title">Note</p>
 <p>The log output uses the term <a class="reference internal" href="glossary.html#term-decap"><span class="xref std std-term">decap</span></a> here, but it seems as though it’s actually inserting <a class="reference internal" href="glossary.html#term-endcap"><span class="xref std std-term">endcap</span></a> cells instead. Is this a typo?</p>
 </div>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>openroad -exit <span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/tapcell.tcl
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>openroad<span class="w"> </span>-exit<span class="w"> </span><span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/tapcell.tcl
 </pre></div>
 </div>
 </section>
@@ -239,7 +239,7 @@ openroad -exit <span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/floorplan
 <h3>pdngen<a class="headerlink" href="#pdngen" title="Permalink to this heading">¶</a></h3>
 <p>The final <a class="reference internal" href="glossary.html#term-Floorplan"><span class="xref std std-term">floorplan</span></a> step is to generate the power distribution network. This is accomplished with the <code class="docutils literal notranslate"><span class="pre">pdngen</span></code> tool from <code class="docutils literal notranslate"><span class="pre">openroad</span></code>.</p>
 <p>This tool creates the power net for the chip. It is driven by evaluating <a class="reference external" href="https://github.com/The-OpenROAD-Project/OpenLane/blob/master/scripts/openroad/common/pdn_cfg.tcl">pdn_cfg.tcl</a> to define the networks prior to running <code class="docutils literal notranslate"><span class="pre">pdn.tcl</span></code></p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>openroad -exit <span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/pdn.tcl
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>openroad<span class="w"> </span>-exit<span class="w"> </span><span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/pdn.tcl
 </pre></div>
 </div>
 </section>
@@ -255,7 +255,7 @@ openroad -exit <span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/floorplan
 <section id="global-placement-or">
 <h3>global_placement_or<a class="headerlink" href="#global-placement-or" title="Permalink to this heading">¶</a></h3>
 <p>This command is aliased to <code class="docutils literal notranslate"><span class="pre">global_placement</span></code>.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>openroad -exit <span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/gpl.tcl
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>openroad<span class="w"> </span>-exit<span class="w"> </span><span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/gpl.tcl
 </pre></div>
 </div>
 </section>
@@ -272,7 +272,7 @@ openroad -exit <span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/floorplan
 <section id="cts">
 <h3>cts<a class="headerlink" href="#cts" title="Permalink to this heading">¶</a></h3>
 <p>This uses <code class="docutils literal notranslate"><span class="pre">TritonCTS</span></code>, which is built into OpenROAD.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>openroad -exit <span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/cts.tcl
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>openroad<span class="w"> </span>-exit<span class="w"> </span><span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/cts.tcl
 </pre></div>
 </div>
 </section>
@@ -313,13 +313,13 @@ openroad -exit <span class="nv">$OPENLANE_ROOT</span>/scripts/openroad/floorplan
 <section id="running-the-hardening-flow">
 <h1>Running the hardening flow<a class="headerlink" href="#running-the-hardening-flow" title="Permalink to this heading">¶</a></h1>
 <p>You can tie everything together by running <code class="docutils literal notranslate"><span class="pre">flow.tcl</span></code> from <code class="docutils literal notranslate"><span class="pre">OpenLane</span></code>:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$VIRTUAL_ENV</span>/lib/python3.10/site-packages/ <span class="se">\</span>
-<span class="nv">STD_CELL_LIBRARY_OPT</span><span class="o">=</span>sky130_fd_sc_hd <span class="se">\</span>
-<span class="nv">STD_CELL_LIBRARY</span><span class="o">=</span>sky130_fd_sc_hd <span class="se">\</span>
-<span class="nv">PDK_ROOT</span><span class="o">=</span>/opt/Si/PDKs/share/pdk <span class="se">\</span>
-<span class="nv">PDK</span><span class="o">=</span>sky130B <span class="se">\</span>
-./flow.tcl <span class="se">\</span>
--design /opt/Si/work/inverter/ <span class="se">\</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$VIRTUAL_ENV</span>/lib/python3.10/site-packages/<span class="w"> </span><span class="se">\</span>
+<span class="nv">STD_CELL_LIBRARY_OPT</span><span class="o">=</span>sky130_fd_sc_hd<span class="w"> </span><span class="se">\</span>
+<span class="nv">STD_CELL_LIBRARY</span><span class="o">=</span>sky130_fd_sc_hd<span class="w"> </span><span class="se">\</span>
+<span class="nv">PDK_ROOT</span><span class="o">=</span>/opt/Si/PDKs/share/pdk<span class="w"> </span><span class="se">\</span>
+<span class="nv">PDK</span><span class="o">=</span>sky130B<span class="w"> </span><span class="se">\</span>
+./flow.tcl<span class="w"> </span><span class="se">\</span>
+-design<span class="w"> </span>/opt/Si/work/inverter/<span class="w"> </span><span class="se">\</span>
 -ignore_mismatches
 </pre></div>
 </div>

@@ -101,6 +101,7 @@
 <li><a class="reference internal" href="#">Memory and Memories</a><ul>
 <li><a class="reference internal" href="#openram">OpenRAM</a></li>
 <li><a class="reference internal" href="#dffram">DFFRAM</a></li>
+<li><a class="reference internal" href="#creating-a-new-dffram-entity">Creating a new DFFRAM entity</a></li>
 </ul>
 </li>
 </ul>
@@ -173,6 +174,17 @@
 <section id="dffram">
 <h2>DFFRAM<a class="headerlink" href="#dffram" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="https://github.com/AUCOHL/DFFRAM">DFFRAM</a> is much faster to synthesize than OpenRAM, but results in lower density memories. DFFRAM can be used to synthesize small, oddly-shaped memories such as cache tag lines or register files.</p>
+</section>
+<section id="creating-a-new-dffram-entity">
+<h2>Creating a new DFFRAM entity<a class="headerlink" href="#creating-a-new-dffram-entity" title="Permalink to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Clone dffram: <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/AUCOHL/DFFRAM.git</span> <span class="pre">&amp;&amp;</span> <span class="pre">cd</span> <span class="pre">DFFRAM</span></code></p></li>
+<li><p>Create a python venv: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-mvenv</span> <span class="pre">.;</span> <span class="pre">.</span> <span class="pre">bin/activate</span></code></p></li>
+<li><p>Install requirements: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code></p></li>
+<li><p>Install volare: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">volare</span></code></p></li>
+<li><p>List available PDKs: <code class="docutils literal notranslate"><span class="pre">volare</span> <span class="pre">--pdk-root</span> <span class="pre">pdks</span> <span class="pre">ls-remote</span></code></p></li>
+<li><p>Install a PDK: <code class="docutils literal notranslate"><span class="pre">volare</span> <span class="pre">enable</span> <span class="pre">--pdk-root</span> <span class="pre">pdks</span> <span class="pre">--pdk</span> <span class="pre">gf180mcu</span> <span class="pre">3f9bdbd857564726b731760dc2c817e84ca7d8ac</span></code></p></li>
+</ol>
 </section>
 </section>
 

@@ -174,9 +174,9 @@
 <h1>Creating a Python venv<a class="headerlink" href="#creating-a-python-venv" title="Permalink to this heading">¶</a></h1>
 <p>Python dependencies become much easier to manage if you install them into a <code class="docutils literal notranslate"><span class="pre">venv</span></code>. This keeps them separate on a per-project basis. It is recommended to set up a <code class="docutils literal notranslate"><span class="pre">venv</span></code> for these tools and to <code class="docutils literal notranslate"><span class="pre">activate</span></code> it prior to installing or using any of these tools.</p>
 <p>You can set an environment variable <code class="docutils literal notranslate"><span class="pre">OPEN_SI_PREFIX</span></code> to point to where you want everything to be installed.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ python3 -mvenv <span class="nv">$OPEN_SI_PREFIX</span>
-$ . <span class="nv">$OPEN_SI_PREFIX</span>/bin/activate
-<span class="o">(</span><span class="nv">$OPEN_SI_PREFIX</span><span class="o">)</span> $
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python3<span class="w"> </span>-mvenv<span class="w"> </span><span class="nv">$OPEN_SI_PREFIX</span>
+$<span class="w"> </span>.<span class="w"> </span><span class="nv">$OPEN_SI_PREFIX</span>/bin/activate
+<span class="o">(</span><span class="nv">$OPEN_SI_PREFIX</span><span class="o">)</span><span class="w"> </span>$
 </pre></div>
 </div>
 <p>You can look in the <code class="docutils literal notranslate"><span class="pre">bin/</span></code> directory to run a different activation script if you run a non-Bourne shell. On Windows, the directory will be called <code class="docutils literal notranslate"><span class="pre">Scripts/</span></code>, although installing these tools is currently unsupported on Windows.</p>
@@ -191,11 +191,11 @@ $ . <span class="nv">$OPEN_SI_PREFIX</span>/bin/activate
 <ol class="arabic simple">
 <li><p>Clone <code class="docutils literal notranslate"><span class="pre">magic</span></code> and compile it.</p></li>
 </ol>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/RTimothyEdwards/magic.git
-<span class="nb">cd</span> magic
-./configure --prefix<span class="o">=</span><span class="nv">$OPEN_SI_PREFIX</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/RTimothyEdwards/magic.git
+<span class="nb">cd</span><span class="w"> </span>magic
+./configure<span class="w"> </span>--prefix<span class="o">=</span><span class="nv">$OPEN_SI_PREFIX</span>
 make
-make install
+make<span class="w"> </span>install
 </pre></div>
 </div>
 <p>Ensure that the prefix is added to the path.</p>
@@ -206,26 +206,26 @@ make install
 <ol class="arabic simple">
 <li><p>Clone the repository</p></li>
 </ol>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone --recursive https://github.com/The-OpenROAD-Project/OpenROAD.git
-<span class="nb">cd</span> OpenROAD
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>--recursive<span class="w"> </span>https://github.com/The-OpenROAD-Project/OpenROAD.git
+<span class="nb">cd</span><span class="w"> </span>OpenROAD
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
 <li><p>Install dependencies</p></li>
 </ol>
 <p>Dependencies only work on CentOS, Ubuntu, and Mac. <strong>Note that this will install development dependencies to `/usr/local`</strong></p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo ./etc/DependencyInstaller.sh -dev
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>./etc/DependencyInstaller.sh<span class="w"> </span>-dev
 </pre></div>
 </div>
 <ol class="arabic simple" start="3">
 <li><p>Compile the project</p></li>
 </ol>
 <p>You can specify a different directory here. This will compile a “release” build by default, but you can specify <code class="docutils literal notranslate"><span class="pre">-DCMAKE_BUILD_TYPE=Debug</span></code> in order to compile a debug version. You can also specify <code class="docutils literal notranslate"><span class="pre">-DGPU=true</span></code> in order to enable gpu support.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mkdir build
-<span class="nb">cd</span> build
-cmake .. -DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="nv">$OPEN_SI_PREFIX</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+cmake<span class="w"> </span>..<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="nv">$OPEN_SI_PREFIX</span>
 make
-make install
+make<span class="w"> </span>install
 </pre></div>
 </div>
 </section>
@@ -235,29 +235,29 @@ make install
 <ol class="arabic simple">
 <li><p>Clone the project</p></li>
 </ol>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/The-OpenROAD-Project/OpenLane.git
-<span class="nb">cd</span> OpenLane
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/The-OpenROAD-Project/OpenLane.git
+<span class="nb">cd</span><span class="w"> </span>OpenLane
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
 <li><p>Install Python dependencies</p></li>
 </ol>
 <p>If you’re using a python environment, activate it before running this command:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip install <span class="se">\</span>
-    -r dependencies/python/run_time.txt <span class="se">\</span>
-    -r dependencies/python/compile_time.txt <span class="se">\</span>
-    -r dependencies/python/precompile_time.txt
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-r<span class="w"> </span>dependencies/python/run_time.txt<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-r<span class="w"> </span>dependencies/python/compile_time.txt<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-r<span class="w"> </span>dependencies/python/precompile_time.txt
 </pre></div>
 </div>
 </section>
 <section id="yosys">
 <h2>Yosys<a class="headerlink" href="#yosys" title="Permalink to this heading">¶</a></h2>
 <p>Yosys is used to synthesize logic from Verilog source code.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/YosysHQ/yosys.git
-<span class="nb">cd</span> yosys
-make config-gcc
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/YosysHQ/yosys.git
+<span class="nb">cd</span><span class="w"> </span>yosys
+make<span class="w"> </span>config-gcc
 make
-make install <span class="nv">PREFIX</span><span class="o">=</span><span class="nv">$OPEN_SI_PREFIX</span>
+make<span class="w"> </span>install<span class="w"> </span><span class="nv">PREFIX</span><span class="o">=</span><span class="nv">$OPEN_SI_PREFIX</span>
 </pre></div>
 </div>
 </section>
@@ -267,39 +267,39 @@ make install <span class="nv">PREFIX</span><span class="o">=</span><span class="
 <ol class="arabic simple">
 <li><p>Install dependencies. This varies depending on your platform.</p></li>
 </ol>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo apt install   gcc g++ make   qttools5-dev libqt5xmlpatterns5-dev qtmultimedia5-dev libqt5multimediawidgets5 libqt5svg5-dev   ruby ruby-dev   python3 python3-dev   libz-dev
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w">   </span>gcc<span class="w"> </span>g++<span class="w"> </span>make<span class="w">   </span>qttools5-dev<span class="w"> </span>libqt5xmlpatterns5-dev<span class="w"> </span>qtmultimedia5-dev<span class="w"> </span>libqt5multimediawidgets5<span class="w"> </span>libqt5svg5-dev<span class="w">   </span>ruby<span class="w"> </span>ruby-dev<span class="w">   </span>python3<span class="w"> </span>python3-dev<span class="w">   </span>libz-dev
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
 <li><p>Clone and compile the program. Note that you can add <cite>-option -j4</cite> to e.g. build with 4 threads.</p></li>
 </ol>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/KLayout/klayout.git
-<span class="nb">cd</span> klayout
-./build.sh -prefix <span class="nv">$OPEN_SI_PREFIX</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/KLayout/klayout.git
+<span class="nb">cd</span><span class="w"> </span>klayout
+./build.sh<span class="w"> </span>-prefix<span class="w"> </span><span class="nv">$OPEN_SI_PREFIX</span>
 </pre></div>
 </div>
 </section>
 <section id="netgen">
 <h2>netgen<a class="headerlink" href="#netgen" title="Permalink to this heading">¶</a></h2>
 <p>Netgen is used to generate a netlist from the resulting chip in order to perform <a class="reference internal" href="glossary.html#term-LVS"><span class="xref std std-term">LVS</span></a> checks.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/RTimothyEdwards/netgen.git
-<span class="nb">cd</span> netgen
-./configure --prefix<span class="o">=</span><span class="nv">$OPEN_SI_PREFIX</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/RTimothyEdwards/netgen.git
+<span class="nb">cd</span><span class="w"> </span>netgen
+./configure<span class="w"> </span>--prefix<span class="o">=</span><span class="nv">$OPEN_SI_PREFIX</span>
 make
-make install
+make<span class="w"> </span>install
 </pre></div>
 </div>
 </section>
 <section id="circuit-validity-checker">
 <h2>Circuit Validity Checker<a class="headerlink" href="#circuit-validity-checker" title="Permalink to this heading">¶</a></h2>
 <p>The Circuit Validity Checker is used towards the end of the hardening process to ensure that the final circuit matches the requirements.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo apt install bison automake autopoint
-git clone https://github.com/d-m-bailey/cvc.git
-<span class="nb">cd</span> cvc
-autoreconf -vif
-./configure --disable-nls --prefix<span class="o">=</span><span class="nv">$OPEN_SI_PREFIX</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>bison<span class="w"> </span>automake<span class="w"> </span>autopoint
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/d-m-bailey/cvc.git
+<span class="nb">cd</span><span class="w"> </span>cvc
+autoreconf<span class="w"> </span>-vif
+./configure<span class="w"> </span>--disable-nls<span class="w"> </span>--prefix<span class="o">=</span><span class="nv">$OPEN_SI_PREFIX</span>
 make
-make install
+make<span class="w"> </span>install
 </pre></div>
 </div>
 </section>
@@ -307,9 +307,9 @@ make install
 <section id="openram">
 <h1>OpenRAM<a class="headerlink" href="#openram" title="Permalink to this heading">¶</a></h1>
 <p>You may need custom memory sizes, for example if you’re working on tagged cache memory. In this case, you will need to compile memories yourself.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/VLSIDA/OpenRAM.git
-<span class="nb">cd</span> OpenRAM
-pip install -r requirements.txt
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/VLSIDA/OpenRAM.git
+<span class="nb">cd</span><span class="w"> </span>OpenRAM
+pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
 </pre></div>
 </div>
 <p>Additionally, OpenRAM requires its own copy of the PDKs.</p>
@@ -334,18 +334,18 @@ pip install -r requirements.txt
 <li><p>Install <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">git</span> <span class="pre">m4</span> <span class="pre">tcsh</span> <span class="pre">tcl-dev</span> <span class="pre">tk-dev</span></code> as well as a C compiler.</p></li>
 <li><p>Clone <code class="docutils literal notranslate"><span class="pre">open_pdks</span></code></p></li>
 </ol>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/RTimothyEdwards/open_pdks.git
-<span class="nb">cd</span> open_pdks
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/RTimothyEdwards/open_pdks.git
+<span class="nb">cd</span><span class="w"> </span>open_pdks
 </pre></div>
 </div>
 <ol class="arabic simple" start="3">
 <li><p>Configure the PDKs you want installed as well path you want to install files to:</p></li>
 </ol>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>./configure <span class="se">\</span>
-    --enable-sky130-pdk <span class="se">\</span>
-    --enable-sram-sky130 <span class="se">\</span>
-    --enable-gf180mcu-pdk <span class="se">\</span>
-    --prefix<span class="o">=</span>/opt/Si/PDKs/
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>./configure<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--enable-sky130-pdk<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--enable-sram-sky130<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--enable-gf180mcu-pdk<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--prefix<span class="o">=</span>/opt/Si/PDKs/
 </pre></div>
 </div>
 <ol class="arabic simple" start="4">
@@ -357,7 +357,7 @@ pip install -r requirements.txt
 <ol class="arabic simple" start="5">
 <li><p>Install the PDK files</p></li>
 </ol>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>make install
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>install
 </pre></div>
 </div>
 </section>
