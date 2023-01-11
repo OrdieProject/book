@@ -11,7 +11,7 @@ Synthesis Takes a Very Long Time
 If your synthesis process takes a very long time, you may need to simplify your design. Depending on the design, this may be either easy or difficult.
 
 * **Avoid using large memories**. While the synthesizer is capable of synthesizing memories from Verilog, this is profoundly inefficient and can take a long time. Instead, prefer to use blackbox memories from either ``OpenRam`` or ``DFFRAM``.
-* **Use blackbox sub-designs**. If it takes a long time to place and route the entire design, you can break it up into multiple sub-projects. That way, your top project consists of just a single project with multiple holes in it, allowing you to pre-synthesize (and pre-place and pre-route) chunks of your project.
+* **Use blackbox sub-designs**. If it takes a long time to place and route the entire design, you can break it up into multiple sub-projects. That way, your top project consists of just a single project with multiple holes in it, allowing you to pre-synthesize (and pre-place and pre-route) chunks of your project. **Be very careful with hold violations**! The tools do not currently check for timing closure between black boxes, so this can cause failures in the final design.
 
 Unable to Place Design
 ----------------------
@@ -77,3 +77,6 @@ Here, ``Circuit 1`` is the layout -- that is, what will be placed on the chip.  
 If ``yyyyyyyy`` is larger than ``zzzzzzzz``, then it might mean there are missing power rails in the Verilog.
 
 Inside the ``.lef.log`` file you will see a line that starts with: ``Comparison output logged to file ...``. Open this file to get an idea of what nets are different between the two.
+
+There are hold violations in the design at the typical corner
+-------------------------------------------------------------

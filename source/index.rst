@@ -15,6 +15,7 @@ Welcome to Ordie: The Primordial Microcontroller's documentation!
    03-hardening-overview
    04-ram
    05-solving-problems
+   walkthrough
    glossary
 
 

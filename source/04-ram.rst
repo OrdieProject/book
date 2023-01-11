@@ -24,3 +24,13 @@ DFFRAM
 ------
 
 `DFFRAM <https://github.com/AUCOHL/DFFRAM>`_ is much faster to synthesize than OpenRAM, but results in lower density memories. DFFRAM can be used to synthesize small, oddly-shaped memories such as cache tag lines or register files.
+
+Creating a new DFFRAM entity
+----------------------------
+
+1. Clone dffram: ``git clone https://github.com/AUCOHL/DFFRAM.git && cd DFFRAM``
+2. Create a python venv: ``python -mvenv .; . bin/activate``
+3. Install requirements: ``pip install -r requirements.txt``
+4. Install volare: ``pip install volare``
+5. List available PDKs: ``volare --pdk-root pdks ls-remote``
+6. Install a PDK: ``volare enable --pdk-root pdks --pdk gf180mcu 3f9bdbd857564726b731760dc2c817e84ca7d8ac``
